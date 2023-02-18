@@ -12,7 +12,7 @@ public class TriangleBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tr = GetComponent<Transform>();
+        tr = transform;
     }
 
     // Update is called once per frame
