@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1101731708654785795}
   - component: {fileID: -3544229008759209837}
   - component: {fileID: 3849021458116274994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BigLog
   m_TagString: Untagged
   m_Icon: {fileID: 0}

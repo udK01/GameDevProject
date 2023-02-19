@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3504072353571478344}
   - component: {fileID: 3504072353571478359}
   - component: {fileID: 3504072353571478345}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RedCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3504072353164752964}
   - component: {fileID: 3504072353164752965}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}

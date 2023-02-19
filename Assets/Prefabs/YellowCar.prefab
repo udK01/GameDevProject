@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7060756456721352473}
   - component: {fileID: 7060756456721352472}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7060756457092381846}
   - component: {fileID: 7060756457092381847}
   - component: {fileID: 7060756457092381845}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: YellowCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
