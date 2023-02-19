@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.SetParent(null);
         }
-        if (obstacle != null)
+        if (obstacle != null && platform == null)
         {
             transform.position += direction;
             Death();
@@ -51,5 +51,14 @@ public class PlayerMovement : MonoBehaviour
     public void Death()
     {
         enabled = false;
+        Debug.Log("Death");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (enabled && collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && transform.parent == null)
+        {
+            Death();
+        }
     }
 }
