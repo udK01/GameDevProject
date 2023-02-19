@@ -3,6 +3,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
+    private Vector3 initialPos;
+
+    private void Awake()
+    {
+        initialPos = transform.position;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W)) {
@@ -48,10 +55,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void Death()
+    private void Death()
     {
         enabled = false;
-        Debug.Log("Death");
+
+        Invoke(nameof(Respawn), 1f);
+    }
+
+    private void Respawn()
+    {
+        transform.position = initialPos;
+        enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
