@@ -4,9 +4,9 @@ public class Player : MonoBehaviour
 {
 
     private Vector3 initialPos;
-    [SerializeField] private int blockDistance = 1;
     private PowerUp powerUpObject;
-    private bool obstacleImmunity = false;
+    [SerializeField] private int blockDistance = 1;
+    [SerializeField] private bool obstacleImmunity;
 
     private void Awake()
     {
@@ -27,6 +27,11 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S)) {
             Move(Vector3.down * blockDistance);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log(obstacleImmunity);
         }
     }
 
@@ -91,7 +96,15 @@ public class Player : MonoBehaviour
     {
         if (enabled && collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && transform.parent == null)
         {
-            Death();
-        }
+            if (obstacleImmunity == false)
+            {
+                Death();
+            } else
+            {
+                Destroy(collision.gameObject);
+                SetObstacleImmunity(false);
+            }
+        } 
     }
 }
+  

@@ -12,9 +12,7 @@ public class PowerUp : MonoBehaviour
 
     public void GivePowerUp()
     {
-        //switch (Random.Range(1, 4))
-        //{
-        switch (3)
+        switch (Random.Range(1, 4))
         {
             case 1:
                 DoubleJump();
@@ -59,5 +57,6 @@ public class PowerUp : MonoBehaviour
     private void ObstacleImmunity()
     {
         player.SetObstacleImmunity(true);
+        Debug.Log("Obstacle Immunity Given!");
     }
 }
