@@ -31,19 +31,25 @@ public class GameManager : MonoBehaviour
         player.Respawn();
     }
 
-    private void SetScore(int score)
+    public void SetScore(int score)
     {
         this.score = score;
         highscoreText.text = score.ToString();
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
     private void CalculateScore()
     {
         Vector3 currentPos = player.transform.position;
         int currentScore = (int)(currentPos.y - startPos.y);
+        int bonusScore = score - (currentScore - 1);
         if (currentScore > highestScore)
         {
-            SetScore(currentScore);
+            SetScore(currentScore + bonusScore);
             highestScore = currentScore;
         }
     }
