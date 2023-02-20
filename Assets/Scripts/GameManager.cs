@@ -7,14 +7,14 @@ public class GameManager : MonoBehaviour
     private int score;
     private int highestScore = 0;
     private Vector3 startPos;
-    private PlayerMovement player;
+    private Player player;
 
     [SerializeField] GameObject gameOverUI;
     [SerializeField] Text highscoreText;
 
     private void Awake()
     {
-        player = FindObjectOfType<PlayerMovement>();
+        player = FindObjectOfType<Player>();
         startPos = player.transform.position;
     }
 

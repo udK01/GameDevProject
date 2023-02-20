@@ -1,28 +1,32 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
 
     private Vector3 initialPos;
+    [SerializeField] private int blockDistance = 1;
+    private PowerUp powerUpObject;
+    private bool obstacleImmunity = false;
 
     private void Awake()
     {
         initialPos = transform.position;
+        powerUpObject = FindObjectOfType<PowerUp>();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W)) {
-            Move(Vector3.up);
+            Move(Vector3.up * blockDistance);
         }
         if (Input.GetKeyDown(KeyCode.A)) {
-            Move(Vector3.left);
+            Move(Vector3.left * blockDistance);
         }
         if (Input.GetKeyDown(KeyCode.D)) {
-            Move(Vector3.right);
+            Move(Vector3.right * blockDistance);
         }
         if (Input.GetKeyDown(KeyCode.S)) {
-            Move(Vector3.down);
+            Move(Vector3.down * blockDistance);
         }
     }
 
@@ -33,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         Collider2D barrier = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Barrier"));
         Collider2D platform = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Platform"));
         Collider2D obstacle = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Obstacle"));
+        Collider2D powerup = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("PowerUp"));
 
         if (barrier != null)
         {
@@ -45,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.SetParent(null);
         }
-        if (obstacle != null && platform == null)
+        if (obstacle != null && platform == null && obstacleImmunity == false)
         {
             transform.position += direction;
             Death();
@@ -53,13 +58,25 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position += direction;
         }
+        if (powerup != null)
+        {
+            powerUpObject.GivePowerUp();
+        }
+    }
+
+    public void SetObstacleImmunity(bool obstacleImmunity)
+    {
+        this.obstacleImmunity = obstacleImmunity;
+    }
+
+    public void ChangeBlockDistance(int blockDistance)
+    {
+        this.blockDistance = blockDistance;
     }
 
     private void Death()
     {
         enabled = false;
-        //Invoke(nameof(Respawn), 1f);
-
         FindObjectOfType<GameManager>().GameOver();
     }
 
