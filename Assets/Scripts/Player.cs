@@ -1,17 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
 
     private Vector3 initialPos;
-    private PowerUp powerUpObject;
     [SerializeField] private int blockDistance = 1;
     [SerializeField] private bool obstacleImmunity;
 
     private void Awake()
     {
         initialPos = transform.position;
-        powerUpObject = FindObjectOfType<PowerUp>();
     }
 
     private void Update()
@@ -65,13 +64,21 @@ public class Player : MonoBehaviour
         }
         if (powerup != null)
         {
-            powerUpObject.GivePowerUp();
+            powerup.gameObject.GetComponent<PowerUp>().GivePowerUp();
+            Destroy(powerup.gameObject);
         }
     }
 
     public void SetObstacleImmunity(bool obstacleImmunity)
     {
         this.obstacleImmunity = obstacleImmunity;
+    }
+
+    IEnumerator ImmunityOver()
+    {
+        Debug.Log("Your Immunity Is Fading...");
+        yield return new WaitForSeconds(2);
+        SetObstacleImmunity(false);
     }
 
     public void ChangeBlockDistance(int blockDistance)
@@ -94,17 +101,22 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (enabled && collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && transform.parent == null)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && transform.parent == null)
         {
             if (obstacleImmunity == false)
             {
                 Death();
             } else
             {
-                Destroy(collision.gameObject);
-                SetObstacleImmunity(false);
+                StopAllCoroutines();
+                StartCoroutine(nameof(ImmunityOver), 0f);
             }
-        } 
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PowerUp"))
+        {
+            collision.gameObject.GetComponent<PowerUp>().GivePowerUp();
+            Destroy(collision.gameObject);
+        }
     }
 }
   
