@@ -58,13 +58,15 @@ public class PlayerMovement : MonoBehaviour
     private void Death()
     {
         enabled = false;
+        //Invoke(nameof(Respawn), 1f);
 
-        Invoke(nameof(Respawn), 1f);
+        FindObjectOfType<GameManager>().GameOver();
     }
 
-    private void Respawn()
+    public void Respawn()
     {
         transform.position = initialPos;
+        gameObject.SetActive(true);
         enabled = true;
     }
 

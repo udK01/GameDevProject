@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,16 +9,31 @@ public class GameManager : MonoBehaviour
     private Vector3 startPos;
     private PlayerMovement player;
 
+    [SerializeField] GameObject gameOverUI;
+    [SerializeField] Text highscoreText;
+
     private void Awake()
     {
-        SetScore(0);
         player = FindObjectOfType<PlayerMovement>();
         startPos = player.transform.position;
+    }
+
+    private void Start()
+    {
+        NewGame();
+    }
+
+    private void NewGame()
+    {
+        SetScore(0);
+        gameOverUI.SetActive(false);
+        player.Respawn();
     }
 
     private void SetScore(int score)
     {
         this.score = score;
+        highscoreText.text = score.ToString();
     }
 
     private void CalculateScore()
@@ -28,6 +45,33 @@ public class GameManager : MonoBehaviour
             SetScore(currentScore);
             highestScore = currentScore;
         }
+    }
+
+    public void GameOver()
+    {
+        player.gameObject.SetActive(false);
+        gameOverUI.SetActive(true);
+        highestScore = 0;
+
+        StopAllCoroutines();
+        StartCoroutine(PlayAgain());
+    }
+
+    private IEnumerator PlayAgain()
+    {
+        bool playAgain = false;
+
+        while (!playAgain)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                playAgain = true;
+            }
+
+            yield return null;
+        }
+
+        Invoke(nameof(NewGame), 1f);
     }
 
     private void Update()
