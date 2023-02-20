@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     {
         SetScore(0);
         gameOverUI.SetActive(false);
+        highestScore = 0;
         player.Respawn();
     }
 
@@ -51,7 +52,6 @@ public class GameManager : MonoBehaviour
     {
         player.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
-        highestScore = 0;
 
         StopAllCoroutines();
         StartCoroutine(PlayAgain());
