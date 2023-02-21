@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 252608012e688264ab41fc224ded3c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lanes: 40
+  lanes: 100
   carSprites:
   - {fileID: -1389979207, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
   - {fileID: 1263831021, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
@@ -998,11 +998,13 @@ MonoBehaviour:
   - {fileID: 527900260, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
   - {fileID: -124939367, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
   - {fileID: -1339999015, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
-  road: {fileID: 4411117048931950172, guid: bd3b65deb5cc3b442a52232a2ece82b4, type: 3}
-  sidewalk: {fileID: 7967890321549324343, guid: 68a343cfa6889ac47a3a93b44668ad76, type: 3}
-  water: {fileID: 3494723726958361843, guid: 8e5b6d27c23a47c479d815d6b14ef639, type: 3}
+  road: {fileID: 8306147479221187998, guid: e74eb85f515933044b0eebc7840a7ff9, type: 3}
+  sidewalk: {fileID: 6273021517003748953, guid: a7dd36e9bf592cd419907b05b2997279, type: 3}
+  water: {fileID: 561958267732556493, guid: 0221f570b9234a249b0ea4089543a589, type: 3}
   barrier: {fileID: 8732881355870057763, guid: a6053edd2c1749349b03e862ebd618d2, type: 3}
   car: {fileID: 1537615596907941060, guid: 46d85564581e03141917d93459e6b79d, type: 3}
+  log: {fileID: 3805294050303680703, guid: 6fc59ec6783fa804287994174c2f699a, type: 3}
+  turtle: {fileID: 3956201282950945744, guid: 95105de6649f22541a8bb516f7474f64, type: 3}
   minRoadSize: 4
   maxRoadSize: 8
   minWaterSize: 4

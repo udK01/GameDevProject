@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 293e7a0560a48a14698ece58960ddfd8
+guid: 90c68366c5b4e4f49a4f910f036bf117
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 55
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LeftCarSprites_0
+      name: logTextures_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 332
-        width: 90
-        height: 48
+        x: 41
+        y: 195
+        width: 138
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2a622a78ec1f4c4ca4e679c7d4934f4
-      internalID: -422265072
+      spriteID: bd8c1125e79b48741b8aa46dd6e97bd5
+      internalID: 1689127617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LeftCarSprites_1
+      name: logTextures_1
       rect:
         serializedVersion: 2
-        x: 147
-        y: 332
-        width: 90
-        height: 48
+        x: 217
+        y: 167
+        width: 142
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28d1a2e39c24dfd42a2ee466b1028c80
-      internalID: 255441546
+      spriteID: 7a7cb4b135d220f41af522d67dbb0040
+      internalID: 1734530370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LeftCarSprites_2
+      name: logTextures_2
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 101
+        width: 66
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7640511654d0634f8b514692d2fdb0d
+      internalID: 134510272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logTextures_3
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 102
+        width: 56
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51b412d2fc925e4439802d311a10536c
+      internalID: 1057894256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logTextures_4
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 99
+        width: 98
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e5cc469531b23b4d81d899905b2dc2b
+      internalID: 569030128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logTextures_5
       rect:
         serializedVersion: 2
         x: 27
-        y: 253
-        width: 97
-        height: 50
+        y: 102
+        width: 166
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0efcbc87eba68d64d9359953f23e05d9
-      internalID: 1072911792
+      spriteID: 4361bb7b126134248b786f9f54f1be8e
+      internalID: 1746595936
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LeftCarSprites_3
+      name: logTextures_6
       rect:
         serializedVersion: 2
-        x: 147
-        y: 256
-        width: 88
-        height: 49
+        x: 224
+        y: 105
+        width: 124
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,134 +245,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c646b2b70981294bb8a611c23a0ecb6
-      internalID: 2043377559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LeftCarSprites_4
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 174
-        width: 94
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 62063cdd5b10cdf40bf80b857d6b1126
-      internalID: -914186060
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LeftCarSprites_5
-      rect:
-        serializedVersion: 2
-        x: 147
-        y: 174
-        width: 92
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89b6d8b6e82f4514cab6ba4e20c03b66
-      internalID: 893093864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LeftCarSprites_6
-      rect:
-        serializedVersion: 2
-        x: 27
-        y: 95
-        width: 91
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ac181592267505d409148a66142d0a93
-      internalID: -1739481295
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LeftCarSprites_7
-      rect:
-        serializedVersion: 2
-        x: 147
-        y: 93
-        width: 88
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f0e1c211c51b254a9aa7c2b9e647501
-      internalID: -1523231366
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LeftCarSprites_8
-      rect:
-        serializedVersion: 2
-        x: 27
-        y: 16
-        width: 91
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d3c6f239dd59814eb81ecbc72bfed05
-      internalID: -21819534
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LeftCarSprites_9
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 16
-        width: 95
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7a3a4286ac1951b44a0b371e4b2dca51
-      internalID: -2007419983
+      spriteID: 55ff3ca74826cca43a845ffd0763968c
+      internalID: 1305019834
       vertices: []
       indices: 
       edges: []
@@ -325,16 +262,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LeftCarSprites_1: 255441546
-      LeftCarSprites_8: -21819534
-      LeftCarSprites_2: 1072911792
-      LeftCarSprites_3: 2043377559
-      LeftCarSprites_5: 893093864
-      LeftCarSprites_9: -2007419983
-      LeftCarSprites_0: -422265072
-      LeftCarSprites_6: -1739481295
-      LeftCarSprites_7: -1523231366
-      LeftCarSprites_4: -914186060
+      logTextures_1: 1734530370
+      logTextures_2: 134510272
+      logTextures_6: 1305019834
+      logTextures_5: 1746595936
+      logTextures_0: 1689127617
+      logTextures_3: 1057894256
+      logTextures_4: 569030128
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
