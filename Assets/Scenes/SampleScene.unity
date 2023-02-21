@@ -2512,6 +2512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 1879379596}
   highscoreText: {fileID: 1374905974}
+  menuUI: {fileID: 989467700}
 --- !u!4 &1018980131
 Transform:
   m_ObjectHideFlags: 0

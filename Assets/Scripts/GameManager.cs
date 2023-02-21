@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
     private Vector3 startPos;
     private Player player;
 
-    [SerializeField] GameObject gameOverUI;
     [SerializeField] Text highscoreText;
+    [SerializeField] GameObject gameOverUI;
+    [SerializeField] GameObject menuUI;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         highscoreText.gameObject.SetActive(true);
         highestScore = 0;
         player.Respawn();
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()
@@ -82,8 +84,18 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(NewGame), 1f);
     }
 
+    private void PauseGame()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            menuUI.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+
     private void Update()
     {
         CalculateScore();
+        PauseGame();
     }
 }
