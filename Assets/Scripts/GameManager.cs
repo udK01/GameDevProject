@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     private Player player;
 
     [SerializeField] Text highscoreText;
+
     [SerializeField] GameObject gameOverUI;
     [SerializeField] GameObject menuUI;
 
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
     {
         player = FindObjectOfType<Player>();
         startPos = player.transform.position;
+        player.enabled = false;
+        Time.timeScale = 0f;
     }
 
     public void NewGame()
@@ -27,6 +31,7 @@ public class GameManager : MonoBehaviour
         highestScore = 0;
         player.Respawn();
         Time.timeScale = 1f;
+        player.enabled = true;
     }
 
     public void QuitGame()
