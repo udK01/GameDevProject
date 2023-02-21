@@ -59,4 +59,13 @@ public class PowerUp : MonoBehaviour
         player.SetObstacleImmunity(true);
         Debug.Log("Obstacle Immunity Given!");
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            GivePowerUp();
+            Destroy(this.gameObject);
+        }
+    }
 }

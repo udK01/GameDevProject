@@ -27,11 +27,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S)) {
             Move(Vector3.down * blockDistance);
         }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log(obstacleImmunity);
-        }
     }
 
     private void Move(Vector3 direction)
@@ -74,11 +69,9 @@ public class Player : MonoBehaviour
         this.obstacleImmunity = obstacleImmunity;
     }
 
-    IEnumerator ImmunityOver()
+    public bool GetObstacleImmunity()
     {
-        Debug.Log("Your Immunity Is Fading...");
-        yield return new WaitForSeconds(2);
-        SetObstacleImmunity(false);
+        return obstacleImmunity;
     }
 
     public void ChangeBlockDistance(int blockDistance)
@@ -86,7 +79,7 @@ public class Player : MonoBehaviour
         this.blockDistance = blockDistance;
     }
 
-    private void Death()
+    public void Death()
     {
         enabled = false;
         FindObjectOfType<GameManager>().GameOver();
@@ -97,26 +90,6 @@ public class Player : MonoBehaviour
         transform.position = initialPos;
         gameObject.SetActive(true);
         enabled = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") && transform.parent == null)
-        {
-            if (obstacleImmunity == false)
-            {
-                Death();
-            } else
-            {
-                StopAllCoroutines();
-                StartCoroutine(nameof(ImmunityOver), 0f);
-            }
-        }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("PowerUp"))
-        {
-            collision.gameObject.GetComponent<PowerUp>().GivePowerUp();
-            Destroy(collision.gameObject);
-        }
     }
 }
   

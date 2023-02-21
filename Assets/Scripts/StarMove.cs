@@ -20,6 +20,7 @@ public class StarMove : MonoBehaviour
             transform.position = transform.position + Vector3.up;
             yield return new WaitForSeconds(2);
         }
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
