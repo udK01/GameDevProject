@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     {
         SetScore(0);
         gameOverUI.SetActive(false);
+        highscoreText.gameObject.SetActive(true);
         highestScore = 0;
         player.Respawn();
     }
