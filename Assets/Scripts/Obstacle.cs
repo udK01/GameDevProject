@@ -78,4 +78,20 @@ public class Obstacle : MonoBehaviour
     {
         WaterDeath();
     }
+
+    public void SetDirection(Vector2 direction)
+    {
+        this.direction = direction;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    public void SetSize(double size)
+    {
+        this.size = size;
+    }
+
 }

@@ -956,7 +956,7 @@ Transform:
   - {fileID: 1657833709}
   - {fileID: 1809511153}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &265661713
 GameObject:
@@ -988,10 +988,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lanes: 40
+  carSprites:
+  - {fileID: -1389979207, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: 1263831021, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: 1788845884, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: 1426750934, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: 1776947396, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: -970973150, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: 527900260, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: -124939367, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
+  - {fileID: -1339999015, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
   road: {fileID: 4411117048931950172, guid: bd3b65deb5cc3b442a52232a2ece82b4, type: 3}
   sidewalk: {fileID: 7967890321549324343, guid: 68a343cfa6889ac47a3a93b44668ad76, type: 3}
   water: {fileID: 3494723726958361843, guid: 8e5b6d27c23a47c479d815d6b14ef639, type: 3}
   barrier: {fileID: 8732881355870057763, guid: a6053edd2c1749349b03e862ebd618d2, type: 3}
+  car: {fileID: 1537615596907941060, guid: 46d85564581e03141917d93459e6b79d, type: 3}
   minRoadSize: 4
   maxRoadSize: 8
   minWaterSize: 4
@@ -1009,7 +1020,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &289764771
 GameObject:
@@ -1332,7 +1343,7 @@ RectTransform:
   - {fileID: 1879379597}
   - {fileID: 1374905973}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1518,7 +1529,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &522907811
 PrefabInstance:
@@ -3011,7 +3022,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &969402123
 GameObject:
@@ -3248,7 +3259,7 @@ Transform:
   m_Children:
   - {fileID: 417322900}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1018980129
 GameObject:
@@ -3295,7 +3306,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1033203758
 GameObject:
@@ -4251,7 +4262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1311880703
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4317,7 +4328,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1311880705
 Rigidbody2D:
