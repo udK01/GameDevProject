@@ -38,6 +38,7 @@ public class PowerUp : MonoBehaviour
         Debug.Log("Double Jump Given!");
         yield return new WaitForSeconds(5);
         player.ChangeBlockDistance(1);
+        Destroy(this.gameObject);
     }
 
     private void TimeSlow()
@@ -52,12 +53,14 @@ public class PowerUp : MonoBehaviour
         Debug.Log("Time Slow Given!");
         yield return new WaitForSeconds(3);
         Time.timeScale = 1f;
+        Destroy(this.gameObject);
     }
 
     private void ObstacleImmunity()
     {
         player.SetObstacleImmunity(true);
         Debug.Log("Obstacle Immunity Given!");
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -65,7 +68,8 @@ public class PowerUp : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             GivePowerUp();
-            Destroy(this.gameObject);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

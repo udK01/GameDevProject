@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         Collider2D barrier = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Barrier"));
         Collider2D platform = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Platform"));
         Collider2D obstacle = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Obstacle"));
-        Collider2D powerup = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("PowerUp"));
 
         if (barrier != null)
         {
@@ -56,11 +55,6 @@ public class Player : MonoBehaviour
         } else
         {
             transform.position += direction;
-        }
-        if (powerup != null)
-        {
-            powerup.gameObject.GetComponent<PowerUp>().GivePowerUp();
-            Destroy(powerup.gameObject);
         }
     }
 

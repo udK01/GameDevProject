@@ -18,18 +18,19 @@ public class GameManager : MonoBehaviour
         startPos = player.transform.position;
     }
 
-    private void Start()
-    {
-        NewGame();
-    }
-
-    private void NewGame()
+    public void NewGame()
     {
         SetScore(0);
         gameOverUI.SetActive(false);
         highscoreText.gameObject.SetActive(true);
         highestScore = 0;
         player.Respawn();
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
     }
 
     public void SetScore(int score)
