@@ -37,7 +37,10 @@ public class Player : MonoBehaviour
         Collider2D platform = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Platform"));
         Collider2D obstacle = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Obstacle"));
 
-        FindObjectOfType<ProceduralGeneration>().GenerateStar(transform.position);
+        ProceduralGeneration generate = FindObjectOfType<ProceduralGeneration>();
+        generate.GenerateStar(transform.position);
+        generate.GeneratePowerUp(transform.position);
+
 
         if (barrier != null)
         {

@@ -25,6 +25,7 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] GameObject log;
     [SerializeField] GameObject turtle;
     [SerializeField] GameObject star;
+    [SerializeField] GameObject powerUp;
 
     [SerializeField] int minRoadSize;
     [SerializeField] int maxRoadSize;
@@ -32,6 +33,8 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] int maxWaterSize;
     [SerializeField] int starChance;
     [SerializeField] int starRadius;
+    [SerializeField] int powerUpChance;
+    [SerializeField] int powerUpRadius;
 
     private void Awake()
     {
@@ -190,7 +193,17 @@ public class ProceduralGeneration : MonoBehaviour
         Collider2D starExists = Physics2D.OverlapCircle(starCoords, starRadius, LayerMask.GetMask("Star"));
         if (Random.Range(0,starChance) == 1 && starExists == null)
         {
-            SpawnObj(star, Random.Range(-7, laneWidth-5), (int) starCoords.y);
+            SpawnObj(star, Random.Range(-laneWidth/2, laneWidth/2), (int) starCoords.y);
+        }
+    }
+
+    public void GeneratePowerUp(Vector2 coords)
+    {
+        Vector2 powerUpCoords = new Vector2(coords.x, coords.y + 7);
+        Collider2D powerUpExists = Physics2D.OverlapCircle(powerUpCoords, powerUpRadius, LayerMask.GetMask("PowerUp"));
+        if (Random.Range(0, powerUpChance) == 1 && powerUpExists == null)
+        {
+            SpawnObj(powerUp, Random.Range(-laneWidth / 2, laneWidth/2), (int)powerUpCoords.y);
         }
     }
 
