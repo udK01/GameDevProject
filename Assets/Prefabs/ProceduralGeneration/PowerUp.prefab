@@ -124,3 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c00696b81484fd43961f2a666bc7b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpBoostDuration: 5
+  timeSlowDuration: 3
+  doubleJumpObject: {fileID: 0}
+  timeSlowObject: {fileID: 0}
+  immunityObject: {fileID: 0}
+  jumpBoostDurationText: {fileID: 0}
+  timeSlowDurationText: {fileID: 0}
+  notificationText: {fileID: 0}

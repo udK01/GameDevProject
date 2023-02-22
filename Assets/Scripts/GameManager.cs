@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +14,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gameOverUI;
     [SerializeField] GameObject menuUI;
 
+    [SerializeField] private Image doubleJumpImage;
+    [SerializeField] private Image timeSlowImage;
+    [SerializeField] private Image immunityImage;
+    [SerializeField] private Text doubleJumpText;
+    [SerializeField] private Text timeSlowText;
+    [SerializeField] private GameObject notificationObject;
+
     private void Awake()
     {
         player = FindObjectOfType<Player>();
@@ -27,7 +33,6 @@ public class GameManager : MonoBehaviour
     {
         SetScore(0);
         gameOverUI.SetActive(false);
-        highscoreText.gameObject.SetActive(true);
         highestScore = 0;
         player.Respawn();
         Time.timeScale = 1f;
@@ -94,8 +99,60 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             menuUI.SetActive(true);
+            menuUI.transform.GetChild(0).gameObject.SetActive(false);
+            menuUI.transform.GetChild(1).gameObject.SetActive(true);
             Time.timeScale = 0f;
         }
+    }
+
+    public void UnPauseGame()
+    {
+        Time.timeScale = 1f;
+        player.enabled = true;
+    }
+
+    public Image GetDoubleJumpImage()
+    {
+        return doubleJumpImage;
+    }
+
+    public Image GetTimeSlowImage()
+    {
+        return timeSlowImage;
+    }
+
+    public Image GetImmunityImage()
+    {
+        return immunityImage;
+    }
+
+    public Text GetDoubleJumpText()
+    {
+        return doubleJumpText;
+    }
+
+    public Text GetTimeSlowText()
+    {
+        return timeSlowText;
+    }
+
+    public void SetNotificationText(string text)
+    {
+        notificationObject.SetActive(true);
+        notificationObject.GetComponentInChildren<Text>().text = text;
+        StopAllCoroutines();
+        StartCoroutine(nameof(WipeText), 0f);
+    }
+
+    public void ChangeImageOpacity(Image img, float opacity)
+    {
+        img.color = new Color(img.color.r, img.color.g, img.color.b, opacity);
+    }
+
+    IEnumerator WipeText()
+    {
+        yield return new WaitForSeconds(2);
+        notificationObject.SetActive(false);
     }
 
     private void Update()

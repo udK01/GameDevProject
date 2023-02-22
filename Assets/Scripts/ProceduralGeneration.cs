@@ -14,7 +14,6 @@ public class ProceduralGeneration : MonoBehaviour
     private int ignoreSideWalk = ignore;
     private int ignoreWater = ignore - 1;
     private int ignoreRoad = ignore - 1;
-    [SerializeField] int lanes;
     [SerializeField] Sprite[] carSprites;
 
     [SerializeField] GameObject road;
@@ -27,6 +26,7 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] GameObject star;
     [SerializeField] GameObject powerUp;
 
+    [SerializeField] int lanes;
     [SerializeField] int minRoadSize;
     [SerializeField] int maxRoadSize;
     [SerializeField] int minWaterSize;
@@ -35,6 +35,7 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] int starRadius;
     [SerializeField] int powerUpChance;
     [SerializeField] int powerUpRadius;
+    [SerializeField] int extraLootSpawnDistance;
 
     private void Awake()
     {
@@ -189,7 +190,7 @@ public class ProceduralGeneration : MonoBehaviour
 
     public void GenerateStar(Vector2 coords)
     {
-        Vector2 starCoords = new Vector2(coords.x, coords.y + 7);
+        Vector2 starCoords = new Vector2(coords.x, coords.y + extraLootSpawnDistance);
         Collider2D starExists = Physics2D.OverlapCircle(starCoords, starRadius, LayerMask.GetMask("Star"));
         if (Random.Range(0,starChance) == 1 && starExists == null)
         {
@@ -199,7 +200,7 @@ public class ProceduralGeneration : MonoBehaviour
 
     public void GeneratePowerUp(Vector2 coords)
     {
-        Vector2 powerUpCoords = new Vector2(coords.x, coords.y + 7);
+        Vector2 powerUpCoords = new Vector2(coords.x, coords.y + extraLootSpawnDistance);
         Collider2D powerUpExists = Physics2D.OverlapCircle(powerUpCoords, powerUpRadius, LayerMask.GetMask("PowerUp"));
         if (Random.Range(0, powerUpChance) == 1 && powerUpExists == null)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Obstacle : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class Obstacle : MonoBehaviour
     private Vector3 leftEdge;
     private Vector3 rightEdge;
     private Player player;
+    private GameManager gm;
 
     private void Awake()
     {
         player = FindObjectOfType<Player>();
+        gm = FindObjectOfType<GameManager>();
         leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
         rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
     }
@@ -40,8 +43,8 @@ public class Obstacle : MonoBehaviour
 
     IEnumerator ImmunityOver()
     {
-        Debug.Log("Your Immunity Is Fading...");
         yield return new WaitForSeconds(2);
+        gm.ChangeImageOpacity(gm.GetImmunityImage(), 0.5f);
         player.SetObstacleImmunity(false);
     }
 
