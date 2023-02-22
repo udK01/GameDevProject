@@ -1005,10 +1005,13 @@ MonoBehaviour:
   car: {fileID: 1537615596907941060, guid: 46d85564581e03141917d93459e6b79d, type: 3}
   log: {fileID: 3805294050303680703, guid: 6fc59ec6783fa804287994174c2f699a, type: 3}
   turtle: {fileID: 3956201282950945744, guid: 95105de6649f22541a8bb516f7474f64, type: 3}
+  star: {fileID: 4410078000893261312, guid: 770f26f97c125a64d9aed9776840e737, type: 3}
   minRoadSize: 4
   maxRoadSize: 8
   minWaterSize: 4
   maxWaterSize: 7
+  starChance: 5
+  starRadius: 10
 --- !u!4 &265661715
 Transform:
   m_ObjectHideFlags: 0
@@ -1268,7 +1271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &443865587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1460,6 +1463,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1525,14 +1529,26 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2da19652117654a89d36e6d33bd13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &522907811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3246,7 +3262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &989467701
 Transform:
   m_ObjectHideFlags: 0
@@ -3279,7 +3295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1018980130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4264,7 +4280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1311880703
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4306,8 +4322,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2747690628134850419, guid: b670ab75dde984907b8570040daa08c5, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.43137255, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d9e1b1a01b29b9a429d617abac05da65, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4370,7 +4386,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.8828125}
+    oldSize: {x: 1.0666667, y: 1.0666667}
     newSize: {x: 1, y: 0.8828125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

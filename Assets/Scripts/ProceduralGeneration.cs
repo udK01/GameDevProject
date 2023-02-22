@@ -10,6 +10,7 @@ public class ProceduralGeneration : MonoBehaviour
     private const int ignore = 2;
     private const int laneWidth = 14;
 
+    private Player player;
     private int ignoreSideWalk = ignore;
     private int ignoreWater = ignore - 1;
     private int ignoreRoad = ignore - 1;
@@ -23,14 +24,18 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] GameObject car;
     [SerializeField] GameObject log;
     [SerializeField] GameObject turtle;
+    [SerializeField] GameObject star;
 
     [SerializeField] int minRoadSize;
     [SerializeField] int maxRoadSize;
     [SerializeField] int minWaterSize;
     [SerializeField] int maxWaterSize;
+    [SerializeField] int starChance;
+    [SerializeField] int starRadius;
 
     private void Awake()
     {
+        player = FindObjectOfType<Player>();
         Generate();
     }
 
@@ -177,6 +182,16 @@ public class ProceduralGeneration : MonoBehaviour
     private void GenerateBarrier(int y)
     {
         SpawnObj(barrier, 0, y);
+    }
+
+    public void GenerateStar(Vector2 coords)
+    {
+        Vector2 starCoords = new Vector2(coords.x, coords.y + 7);
+        Collider2D starExists = Physics2D.OverlapCircle(starCoords, starRadius, LayerMask.GetMask("Star"));
+        if (Random.Range(0,starChance) == 1 && starExists == null)
+        {
+            SpawnObj(star, Random.Range(-7, laneWidth-5), (int) starCoords.y);
+        }
     }
 
     private void SpawnObj(GameObject obj, int width, int height)
