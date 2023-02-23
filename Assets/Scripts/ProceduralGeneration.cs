@@ -31,11 +31,10 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] int maxRoadSize;
     [SerializeField] int minWaterSize;
     [SerializeField] int maxWaterSize;
-    [SerializeField] int starChance;
-    [SerializeField] int starRadius;
-    [SerializeField] int powerUpChance;
-    [SerializeField] int powerUpRadius;
+    [SerializeField] int lootRadius;
     [SerializeField] int extraLootSpawnDistance;
+    [SerializeField] int starChance;
+    [SerializeField] int powerUpChance;
 
     private void Awake()
     {
@@ -188,32 +187,39 @@ public class ProceduralGeneration : MonoBehaviour
         SpawnObj(barrier, 0, y);
     }
 
-    public void GenerateStar(Vector2 coords)
+    public void GenerateLoot(Vector2 lootCoords, string lootType)
     {
-        Vector2 starCoords = new Vector2(coords.x, coords.y + extraLootSpawnDistance);
-        Collider2D starExists = Physics2D.OverlapCircle(starCoords, starRadius, LayerMask.GetMask("Star"));
-        if (Random.Range(0,starChance) == 1 && starExists == null)
+        Vector2 lootPos = new Vector2(lootCoords.x, lootCoords.y + extraLootSpawnDistance);
+        Collider2D lootExists = Physics2D.OverlapCircle(lootPos, lootRadius, LayerMask.GetMask(lootType));
+        switch (lootType)
         {
-            SpawnObj(star, Random.Range(-laneWidth/2, laneWidth/2), (int) starCoords.y);
+            case "Star":
+                SpawnLoot(star, starChance, lootExists, lootPos);
+                break;
+            case "PowerUp":
+                SpawnLoot(powerUp, powerUpChance, lootExists, lootPos);
+                break;
+        }
+        
+    }
+
+    // SpawnLoot.
+    private void SpawnLoot(GameObject obj, int chance, Collider2D lootExists, Vector2 lootPos)
+    {
+        if (Random.Range(0, chance) == 1 && lootExists == null)
+        {
+            SpawnObj(obj, Random.Range(-laneWidth / 2, laneWidth / 2), (int)lootPos.y);
         }
     }
 
-    public void GeneratePowerUp(Vector2 coords)
-    {
-        Vector2 powerUpCoords = new Vector2(coords.x, coords.y + extraLootSpawnDistance);
-        Collider2D powerUpExists = Physics2D.OverlapCircle(powerUpCoords, powerUpRadius, LayerMask.GetMask("PowerUp"));
-        if (Random.Range(0, powerUpChance) == 1 && powerUpExists == null)
-        {
-            SpawnObj(powerUp, Random.Range(-laneWidth / 2, laneWidth/2), (int)powerUpCoords.y);
-        }
-    }
-
+    // Spawn Stationary Objects.
     private void SpawnObj(GameObject obj, int width, int height)
     {
         obj = Instantiate(obj, new Vector2(width, height), Quaternion.identity);
         obj.transform.parent = this.transform;
     }
 
+    // Spawn Moving Objects.
     private void SpawnObj(GameObject obj, int width, int height, Vector2 direction, float speed, double size, Sprite sprite)
     {
         obj = Instantiate(obj, new Vector2(width, height), Quaternion.identity);

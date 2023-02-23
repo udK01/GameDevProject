@@ -1234,11 +1234,10 @@ MonoBehaviour:
   maxRoadSize: 8
   minWaterSize: 4
   maxWaterSize: 7
-  starChance: 100
-  starRadius: 10
-  powerUpChance: 35
-  powerUpRadius: 10
+  lootRadius: 10
   extraLootSpawnDistance: 7
+  starChance: 100
+  powerUpChance: 35
 --- !u!4 &265661715
 Transform:
   m_ObjectHideFlags: 0
