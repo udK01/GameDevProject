@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private int score;
-    private int highestScore = 0;
+    private int currentHighestScore = 0;
     private Vector3 startPos;
     private Player player;
+    private Vector3 leftEdge;
+    private Vector3 rightEdge;
 
     [SerializeField] Text highscoreText;
 
@@ -27,13 +29,15 @@ public class GameManager : MonoBehaviour
         startPos = player.transform.position;
         player.enabled = false;
         Time.timeScale = 0f;
+        leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
+        rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
     }
 
     public void NewGame()
     {
         SetScore(0);
         gameOverUI.SetActive(false);
-        highestScore = 0;
+        currentHighestScore = 0;
         player.Respawn();
         Time.timeScale = 1f;
         player.enabled = true;
@@ -61,10 +65,10 @@ public class GameManager : MonoBehaviour
         Vector3 currentPos = player.transform.position;
         int currentScore = (int)(currentPos.y - startPos.y);
         int bonusScore = score - (currentScore - 1);
-        if (currentScore > highestScore)
+        if (currentScore > currentHighestScore)
         {
             SetScore(currentScore + bonusScore);
-            highestScore = currentScore;
+            currentHighestScore = currentScore;
         }
     }
 
@@ -155,8 +159,29 @@ public class GameManager : MonoBehaviour
         notificationObject.SetActive(false);
     }
 
+    private void CheckPlayerOnMap()
+    {
+        if (player.transform.position.x < leftEdge.x)
+        {
+            player.enabled = false;
+        }
+        else
+        {
+            player.enabled = true;
+        }
+        if (player.transform.position.x > rightEdge.x)
+        {
+            player.enabled = false;
+        }
+        else
+        {
+            player.enabled = true;
+        }
+    }
+
     private void Update()
     {
+        CheckPlayerOnMap();
         CalculateScore();
         PauseGame();
     }

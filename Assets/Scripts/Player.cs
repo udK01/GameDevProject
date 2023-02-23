@@ -53,14 +53,15 @@ public class Player : MonoBehaviour
         {
             transform.SetParent(null);
         }
-        if (obstacle != null && platform == null && obstacleImmunity == false)
-        {
-            transform.position += direction;
-            Death();
-        } else
-        {
-            transform.position += direction;
-        }
+        transform.position += direction;
+        //if (obstacle != null && platform == null)
+        //{
+        //    transform.position += direction;
+        //    //Death();
+        //} else
+        //{
+            
+        //}
     }
 
     public void SetObstacleImmunity(bool obstacleImmunity)

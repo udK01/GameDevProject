@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Obstacle : MonoBehaviour
 {
@@ -75,6 +74,7 @@ public class Obstacle : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         CarDeath(collision);
+        WaterDeath();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
