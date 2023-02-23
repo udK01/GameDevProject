@@ -5,48 +5,48 @@ public enum Options { ROAD, SIDEWALK, WATER }
 public class ProceduralGeneration : MonoBehaviour
 {
     private Options option;
-    private int i;
-
+    private Player player;
     private const int ignore = 2;
     private const int laneWidth = 14;
 
-    private Player player;
+    private int i;
     private int ignoreSideWalk = ignore;
     private int ignoreWater = ignore - 1;
     private int ignoreRoad = ignore - 1;
-    [SerializeField] Sprite[] carSprites;
 
-    [SerializeField] GameObject road;
-    [SerializeField] GameObject sidewalk;
-    [SerializeField] GameObject water;
-    [SerializeField] GameObject barrier;
-    [SerializeField] GameObject car;
-    [SerializeField] GameObject log;
-    [SerializeField] GameObject turtle;
-    [SerializeField] GameObject star;
-    [SerializeField] GameObject powerUp;
-
-    [SerializeField] int lanes;
-
-    [SerializeField] int minRoadSize;
-    [SerializeField] int maxRoadSize;
-    [SerializeField] int minWaterSize;
-    [SerializeField] int maxWaterSize;
-
-    [SerializeField] int minTurtles;
-    [SerializeField] int maxTurtles;
-    [SerializeField] int turtleMinSpeed;
-    [SerializeField] int turtleMaxSpeed;
-
-    [SerializeField] int minLogs;
-    [SerializeField] int maxLogs;
-    [SerializeField] int logMinSpeed;
-    [SerializeField] int logMaxSpeed;
-
-    [SerializeField] int lootRadius;
-    [SerializeField] int extraLootSpawnDistance;
-    [SerializeField] int starChance;
-    [SerializeField] int powerUpChance;
+    [SerializeField] private Sprite[] carSprites;
+    [Header("Game Objects")]
+    [SerializeField] private GameObject road;
+    [SerializeField] private GameObject sidewalk;
+    [SerializeField] private GameObject water;
+    [SerializeField] private GameObject barrier;
+    [SerializeField] private GameObject car;
+    [SerializeField] private GameObject log;
+    [SerializeField] private GameObject turtle;
+    [SerializeField] private GameObject star;
+    [SerializeField] private GameObject powerUp;
+    [Header("Lanes")]
+    [SerializeField] private int lanes;
+    [Header("Road/Water")]
+    [SerializeField] private int minRoadSize;
+    [SerializeField] private int maxRoadSize;
+    [SerializeField] private int minWaterSize;
+    [SerializeField] private int maxWaterSize;
+    [Header("Turtles")]
+    [SerializeField] private int minTurtles;
+    [SerializeField] private int maxTurtles;
+    [SerializeField] private int turtleMinSpeed;
+    [SerializeField] private int turtleMaxSpeed;
+    [Header("Logs")]
+    [SerializeField] private int minLogs;
+    [SerializeField] private int maxLogs;
+    [SerializeField] private int logMinSpeed;
+    [SerializeField] private int logMaxSpeed;
+    [Header("Loot")]
+    [SerializeField] private int lootRadius;
+    [SerializeField] private int extraLootSpawnDistance;
+    [SerializeField] private int starChance;
+    [SerializeField] private int powerUpChance;
 
     private void Awake()
     {
