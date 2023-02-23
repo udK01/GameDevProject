@@ -1234,6 +1234,14 @@ MonoBehaviour:
   maxRoadSize: 8
   minWaterSize: 4
   maxWaterSize: 7
+  minTurtles: 3
+  maxTurtles: 9
+  turtleMinSpeed: 1
+  turtleMaxSpeed: 4
+  minLogs: 2
+  maxLogs: 5
+  logMinSpeed: 2
+  logMaxSpeed: 5
   lootRadius: 10
   extraLootSpawnDistance: 7
   starChance: 100

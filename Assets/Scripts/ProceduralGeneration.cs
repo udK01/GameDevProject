@@ -27,10 +27,22 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] GameObject powerUp;
 
     [SerializeField] int lanes;
+
     [SerializeField] int minRoadSize;
     [SerializeField] int maxRoadSize;
     [SerializeField] int minWaterSize;
     [SerializeField] int maxWaterSize;
+
+    [SerializeField] int minTurtles;
+    [SerializeField] int maxTurtles;
+    [SerializeField] int turtleMinSpeed;
+    [SerializeField] int turtleMaxSpeed;
+
+    [SerializeField] int minLogs;
+    [SerializeField] int maxLogs;
+    [SerializeField] int logMinSpeed;
+    [SerializeField] int logMaxSpeed;
+
     [SerializeField] int lootRadius;
     [SerializeField] int extraLootSpawnDistance;
     [SerializeField] int starChance;
@@ -53,7 +65,7 @@ public class ProceduralGeneration : MonoBehaviour
                 case Options.ROAD:
                     if (ignoreRoad == 0)
                     {
-                        GenerateRoad(i);
+                        GenerateRoad(i--);
                     }
                     else
                     {
@@ -74,7 +86,7 @@ public class ProceduralGeneration : MonoBehaviour
                 case Options.WATER:
                     if (ignoreWater == 0)
                     {
-                        GenerateWater(i);
+                        GenerateWater(i--);
                     }
                     else
                     {
@@ -102,28 +114,46 @@ public class ProceduralGeneration : MonoBehaviour
             ignoreRoad = ignore - 1;
             i++;
         }
-        i--;
+    }
+
+    private void GenerateWater(int y)
+    {
+        for (int j = y; j < (y+Random.Range(minWaterSize, maxWaterSize)); j++)
+        {
+            SpawnObj(water, 0, j);
+            if (GetDirection() == Vector2.right)
+            {
+                GenerateWaterObj(j, Random.Range(minLogs, maxLogs), log, GetDirection(), RandomSpeed(logMinSpeed, logMaxSpeed));
+            } else
+            {
+                GenerateWaterObj(j, Random.Range(minTurtles, maxTurtles), turtle, GetDirection(), RandomSpeed(turtleMinSpeed, turtleMaxSpeed));
+            }
+            
+            ignoreWater = ignore - 1;
+            i++;
+        }
+    }
+
+    private void GenerateSidewalk(int y)
+    {
+        SpawnObj(sidewalk, 0, y);
+        ignoreSideWalk = ignore;
+    }
+
+    private void GenerateBarrier(int y)
+    {
+        SpawnObj(barrier, 0, y);
     }
 
     private int RandomSpeed(int x, int y)
     {
-        return Random.Range(x,y);
+        return Random.Range(x, y);
     }
 
     private Vector2 GetDirection()
     {
         Vector2[] directions = { Vector2.left, Vector2.right };
         return directions[Random.Range(0, 2)];
-    }
-
-    private void GenerateCar(int y, int n, Vector2 direction, float speed)
-    {
-        Sprite sprite = carSprites[Random.Range(0, 9)];
-        int[] spArray = CalculateSpawnPoints(n);
-        for (int j = 0; j < n; j++)
-        { 
-            SpawnObj(car, Random.Range(spArray[j]+1,spArray[j+1]-1), y, direction, speed, 1, sprite);
-        }
     }
 
     private int[] CalculateSpawnPoints(int n)
@@ -137,54 +167,24 @@ public class ProceduralGeneration : MonoBehaviour
         return spArray;
     }
 
-    private void GenerateWater(int y)
+    private void GenerateCar(int y, int n, Vector2 direction, float speed)
     {
-        for (int j = y; j < (y+Random.Range(minWaterSize, maxWaterSize)); j++)
+        Sprite sprite = carSprites[Random.Range(0, 9)];
+        int[] spArray = CalculateSpawnPoints(n);
+        for (int j = 0; j < n; j++)
         {
-            SpawnObj(water, 0, j);
-            if (GetDirection() == Vector2.right)
-            {
-                GenerateLog(j, Random.Range(1, 5), GetDirection(), RandomSpeed(1, 5));
-            } else
-            {
-                GenerateTurtle(j, Random.Range(4, 8), GetDirection(), RandomSpeed(1, 3));
-            }
-            
-            ignoreWater = ignore - 1;
-            i++;
+            SpawnObj(car, Random.Range(spArray[j] + 1, spArray[j + 1] - 1), y, direction, speed, 1, sprite);
         }
-        i--;
     }
 
-    private void GenerateLog(int y, int n, Vector2 direction, float speed)
+    private void GenerateWaterObj(int y, int n, GameObject obj, Vector2 direction, float speed)
     {
         int[] spArray = CalculateSpawnPoints(n);
         for (int j = 0; j < n; j++)
         {
-            SpawnObj(log, Random.Range(spArray[j]+1, spArray[j + 1]-1), y, 
-                direction, speed, 1, log.gameObject.GetComponent<SpriteRenderer>().sprite);
+            SpawnObj(obj, Random.Range(spArray[j] + 1, spArray[j + 1] - 1), y,
+                direction, speed, 1, obj.GetComponent<SpriteRenderer>().sprite);
         }
-    }
-
-    private void GenerateTurtle(int y, int n, Vector2 direction, float speed)
-    {
-        int[] spArray = CalculateSpawnPoints(n);
-        for (int j = 0; j < n; j++)
-        {
-            SpawnObj(turtle, Random.Range(spArray[j] + 1, spArray[j + 1]), y,
-                direction, speed, 1, turtle.gameObject.GetComponent<SpriteRenderer>().sprite);
-        }
-    }
-
-    private void GenerateSidewalk(int y)
-    {
-        SpawnObj(sidewalk, 0, y);
-        ignoreSideWalk = ignore;
-    }
-
-    private void GenerateBarrier(int y)
-    {
-        SpawnObj(barrier, 0, y);
     }
 
     public void GenerateLoot(Vector2 lootCoords, string lootType)
@@ -200,7 +200,7 @@ public class ProceduralGeneration : MonoBehaviour
                 SpawnLoot(powerUp, powerUpChance, lootExists, lootPos);
                 break;
         }
-        
+
     }
 
     // SpawnLoot.
