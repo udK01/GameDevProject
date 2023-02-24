@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private Player player;
 
     private int score;
+    private int bonusScore;
     private int currentHighestScore = 0; // In that run.
     private int highestScoreAchieved = 0; // Overall highscore
 
@@ -42,8 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        SetScore(0);
-        currentHighestScore = 0;
+        ResetScore();
         gameOverUI.SetActive(false);
         gamePlayUI.SetActive(true);
         Time.timeScale = 1f;
@@ -63,6 +63,13 @@ public class GameManager : MonoBehaviour
         highscoreText.text = score.ToString();
     }
 
+    private void ResetScore()
+    {
+        SetScore(0);
+        currentHighestScore = 0;
+        bonusScore = 0;
+    }
+
     public int GetScore()
     {
         return score;
@@ -71,13 +78,10 @@ public class GameManager : MonoBehaviour
     private void CalculateScore()
     {
         Vector3 currentPos = player.transform.position;
-        Debug.Log("1: " + (currentPos.y - startPos.y));
-        Debug.Log("2: " + (Mathf.Ceil(currentPos.y) - Mathf.Ceil(startPos.y)));
-        int currentScore = (int)(Mathf.Ceil(currentPos.y) - Mathf.Ceil(startPos.y));
-        int bonusScore = score - (currentScore - 1);
+        int currentScore = (int)currentPos.y+bonusScore;
         if (currentScore > currentHighestScore)
         {
-            SetScore(currentScore + bonusScore);
+            SetScore(currentScore);
             currentHighestScore = currentScore;
             if (highestScoreAchieved < score)
             {
@@ -87,11 +91,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SetBonusScore(int bonusScore)
+    {
+        this.bonusScore = bonusScore;
+    }
+
+    public int GetBonusScore()
+    {
+        return bonusScore;
+    }
+
     public void GameOver()
     {
         player.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
         gamePlayUI.SetActive(false);
+        notificationObject.SetActive(false);
         endScoreText.text = score.ToString();
         highestScoreAchievedText.text = highestScoreAchieved.ToString();
 

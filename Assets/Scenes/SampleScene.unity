@@ -1244,8 +1244,8 @@ MonoBehaviour:
   logMaxSpeed: 5
   lootRadius: 0
   extraLootSpawnDistance: 0
-  starChance: 100
-  powerUpChance: 2
+  starChance: 2
+  powerUpChance: 35
 --- !u!4 &265661715
 Transform:
   m_ObjectHideFlags: 0

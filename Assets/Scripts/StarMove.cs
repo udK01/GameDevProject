@@ -27,7 +27,7 @@ public class StarMove : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            gm.SetScore(gm.GetScore() + 10);
+            gm.SetBonusScore(gm.GetBonusScore()+10);
             Destroy(this.gameObject);
         }
     }
