@@ -2,8 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum PowerUps { DOUBLEJUMP, TIMESLOW, IMMUNITY }
+
 public class PowerUp : MonoBehaviour
 {
+    private PowerUps powerUp;
     private Player player;
     private GameManager gm;
     [SerializeField] private int jumpBoostDuration;
@@ -28,15 +31,16 @@ public class PowerUp : MonoBehaviour
 
     public void GivePowerUp()
     {
-        switch (Random.Range(1, 4))
+        powerUp = (PowerUps)Random.Range(0, 3);
+        switch (powerUp)
         {
-            case 1:
+            case PowerUps.DOUBLEJUMP:
                 DoubleJump();
                 break;
-            case 2:
+            case PowerUps.TIMESLOW:
                 TimeSlow();
                 break;
-            case 3:
+            case PowerUps.IMMUNITY:
                 ObstacleImmunity();
                 break;
         }

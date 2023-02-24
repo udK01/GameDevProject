@@ -1242,9 +1242,9 @@ MonoBehaviour:
   maxLogs: 5
   logMinSpeed: 2
   logMaxSpeed: 5
-  lootRadius: 0
-  extraLootSpawnDistance: 0
-  starChance: 2
+  lootRadius: 10
+  extraLootSpawnDistance: 7
+  starChance: 100
   powerUpChance: 35
 --- !u!4 &265661715
 Transform:
