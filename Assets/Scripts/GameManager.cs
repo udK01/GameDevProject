@@ -4,24 +4,30 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private int score;
-    private int currentHighestScore = 0;
-    private Vector3 startPos;
     private Player player;
+
+    private int score;
+    private int currentHighestScore = 0; // In that run.
+    private int highestScoreAchieved = 0; // Overall highscore
+
+    private Vector3 startPos;
     private Vector3 leftEdge;
     private Vector3 rightEdge;
 
-    [SerializeField] Text highscoreText;
-
-    [SerializeField] GameObject gameOverUI;
-    [SerializeField] GameObject menuUI;
+    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject menuUI;
+    [SerializeField] private GameObject gamePlayUI;
+    [SerializeField] private GameObject notificationObject;
 
     [SerializeField] private Image doubleJumpImage;
     [SerializeField] private Image timeSlowImage;
     [SerializeField] private Image immunityImage;
+
+    [SerializeField] private Text endScoreText;
+    [SerializeField] private Text highestScoreAchievedText;
     [SerializeField] private Text doubleJumpText;
     [SerializeField] private Text timeSlowText;
-    [SerializeField] private GameObject notificationObject;
+    [SerializeField] private Text highscoreText;
 
     private void Awake()
     {
@@ -31,15 +37,17 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
         rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
+        highestScoreAchieved = PlayerPrefs.GetInt("Score");
     }
 
     public void NewGame()
     {
         SetScore(0);
-        gameOverUI.SetActive(false);
         currentHighestScore = 0;
-        player.Respawn();
+        gameOverUI.SetActive(false);
+        gamePlayUI.SetActive(true);
         Time.timeScale = 1f;
+        player.Respawn();
         player.enabled = true;
     }
 
@@ -63,12 +71,19 @@ public class GameManager : MonoBehaviour
     private void CalculateScore()
     {
         Vector3 currentPos = player.transform.position;
-        int currentScore = (int)(currentPos.y - startPos.y);
+        Debug.Log("1: " + (currentPos.y - startPos.y));
+        Debug.Log("2: " + (Mathf.Ceil(currentPos.y) - Mathf.Ceil(startPos.y)));
+        int currentScore = (int)(Mathf.Ceil(currentPos.y) - Mathf.Ceil(startPos.y));
         int bonusScore = score - (currentScore - 1);
         if (currentScore > currentHighestScore)
         {
             SetScore(currentScore + bonusScore);
             currentHighestScore = currentScore;
+            if (highestScoreAchieved < score)
+            {
+                highestScoreAchieved = score;
+                PlayerPrefs.SetInt("Score", highestScoreAchieved);
+            }
         }
     }
 
@@ -76,6 +91,9 @@ public class GameManager : MonoBehaviour
     {
         player.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
+        gamePlayUI.SetActive(false);
+        endScoreText.text = score.ToString();
+        highestScoreAchievedText.text = highestScoreAchieved.ToString();
 
         StopAllCoroutines();
         StartCoroutine(PlayAgain());
