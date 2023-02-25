@@ -114,7 +114,7 @@ public class ProceduralGeneration : MonoBehaviour
             }
         }
     }
-    
+
     public void ResetMap()
     {
         foreach (Transform child in transform) {

@@ -39,7 +39,6 @@ public class PowerUp : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            FindObjectOfType<ProceduralGeneration>().GenerateBarrier(playerAway);
             yield return new WaitForSeconds(1f);
         }
     }

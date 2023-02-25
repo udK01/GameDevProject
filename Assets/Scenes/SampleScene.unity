@@ -4679,12 +4679,12 @@ MonoBehaviour:
   - name: PlayerDeath
     clip: {fileID: 8300000, guid: ebac993c3fe7c3549a05f26fe8e5c1ac, type: 3}
     loop: 0
-    volume: 0.4
+    volume: 0.3
     pitch: 1
   - name: Theme
     clip: {fileID: 8300000, guid: f547192c07b915c45b2e45ecbc555704, type: 3}
     loop: 1
-    volume: 0.5
+    volume: 0.2
     pitch: 1
 --- !u!4 &1215445362
 Transform:
