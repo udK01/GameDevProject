@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private Player player;
+    private SoundManager sm;
 
     private int score;
     private int bonusScore;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<Player>();
+        sm = FindObjectOfType<SoundManager>();
         startPos = player.transform.position;
         player.enabled = false;
         Time.timeScale = 0f;
@@ -146,6 +148,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         player.enabled = true;
+    }
+
+    public SoundManager GetSoundManager()
+    {
+        return sm;
     }
 
     public Image GetDoubleJumpImage()

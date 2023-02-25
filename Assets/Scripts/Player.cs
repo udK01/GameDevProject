@@ -1,9 +1,7 @@
-using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     private Vector3 initialPos;
     [SerializeField] private int blockDistance = 1;
     [SerializeField] private bool obstacleImmunity;
@@ -37,9 +35,8 @@ public class Player : MonoBehaviour
         Collider2D platform = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Platform"));
         Collider2D obstacle = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Obstacle"));
 
-        ProceduralGeneration generate = FindObjectOfType<ProceduralGeneration>();
-        generate.GenerateLoot(transform.position, "Star");
-        generate.GenerateLoot(transform.position, "PowerUp");
+        FindObjectOfType<ProceduralGeneration>().GenerateLoot(transform.position, "Star");
+        FindObjectOfType<ProceduralGeneration>().GenerateLoot(transform.position, "PowerUp");
 
 
         if (barrier != null)
@@ -54,14 +51,6 @@ public class Player : MonoBehaviour
             transform.SetParent(null);
         }
         transform.position += direction;
-        //if (obstacle != null && platform == null)
-        //{
-        //    transform.position += direction;
-        //    //Death();
-        //} else
-        //{
-            
-        //}
     }
 
     public void SetObstacleImmunity(bool obstacleImmunity)
@@ -81,6 +70,7 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
+        FindObjectOfType<GameManager>().GetSoundManager().PlaySound("PlayerDeath");
         enabled = false;
         FindObjectOfType<GameManager>().GameOver();
     }
