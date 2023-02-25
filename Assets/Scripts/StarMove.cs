@@ -5,6 +5,7 @@ public class StarMove : MonoBehaviour
 {
 
     private GameManager gm;
+    private int AmountToGive = 10;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class StarMove : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             transform.position = transform.position + Vector3.up;
+            AmountToGive--;
             yield return new WaitForSeconds(2);
         }
         Destroy(this.gameObject);
@@ -27,7 +29,7 @@ public class StarMove : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            gm.SetBonusScore(gm.GetBonusScore()+10);
+            gm.SetBonusScore(gm.GetBonusScore()+AmountToGive);
             Destroy(this.gameObject);
         }
     }
