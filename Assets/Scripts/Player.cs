@@ -80,6 +80,7 @@ public class Player : MonoBehaviour
         transform.position = initialPos;
         gameObject.SetActive(true);
         enabled = true;
+        FindObjectOfType<ProceduralGeneration>().ResetMap();
     }
 }
   

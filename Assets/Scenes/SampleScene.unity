@@ -1229,7 +1229,7 @@ MonoBehaviour:
   turtle: {fileID: 3956201282950945744, guid: 95105de6649f22541a8bb516f7474f64, type: 3}
   star: {fileID: 4410078000893261312, guid: 770f26f97c125a64d9aed9776840e737, type: 3}
   powerUp: {fileID: 106732387933484876, guid: 528a5d6edf8614844a577647337ad47b, type: 3}
-  lanes: 100
+  lanes: 10
   minRoadSize: 4
   maxRoadSize: 8
   minWaterSize: 4
@@ -1245,7 +1245,7 @@ MonoBehaviour:
   lootRadius: 10
   extraLootSpawnDistance: 7
   starChance: 100
-  powerUpChance: 35
+  powerUpChance: 5
 --- !u!4 &265661715
 Transform:
   m_ObjectHideFlags: 0
@@ -4684,7 +4684,7 @@ MonoBehaviour:
   - name: Theme
     clip: {fileID: 8300000, guid: f547192c07b915c45b2e45ecbc555704, type: 3}
     loop: 1
-    volume: 0.1
+    volume: 0.5
     pitch: 1
 --- !u!4 &1215445362
 Transform:

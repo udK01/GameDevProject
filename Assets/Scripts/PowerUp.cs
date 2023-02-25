@@ -27,6 +27,21 @@ public class PowerUp : MonoBehaviour
         immunityImage = gm.GetImmunityImage();
         doubleJumpText = gm.GetDoubleJumpText();
         timeSlowText = gm.GetTimeSlowText();
+        StartCoroutine(nameof(OutOfBounds), 0f);
+    }
+
+    IEnumerator OutOfBounds()
+    {
+        for (;;)
+        {
+            int playerAway = (int)player.transform.position.y - 10;
+            if (playerAway >= gameObject.transform.position.y)
+            {
+                Destroy(gameObject);
+            }
+            FindObjectOfType<ProceduralGeneration>().GenerateBarrier(playerAway);
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     public void GivePowerUp()
