@@ -30,16 +30,17 @@ public class PowerUp : MonoBehaviour
         StartCoroutine(nameof(OutOfBounds), 0f);
     }
 
-    IEnumerator OutOfBounds()
+    private void Start()
     {
-        for (;;)
+        InvokeRepeating(nameof(OutOfBounds), 0f, 1f);
+    }
+
+    private void OutOfBounds()
+    {
+        int playerAway = (int)player.transform.position.y - 10;
+        if (playerAway >= gameObject.transform.position.y)
         {
-            int playerAway = (int)player.transform.position.y - 10;
-            if (playerAway >= gameObject.transform.position.y)
-            {
-                Destroy(gameObject);
-            }
-            yield return new WaitForSeconds(1f);
+            Destroy(gameObject);
         }
     }
 

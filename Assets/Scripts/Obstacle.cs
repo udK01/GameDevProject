@@ -18,7 +18,11 @@ public class Obstacle : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
         leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
         rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
-        StartCoroutine(nameof(OutOfBounds), 0f);
+    }
+
+    private void Start()
+    {
+        InvokeRepeating(nameof(OutOfBounds), 0f, 1f);
     }
 
     private void Update()
@@ -41,16 +45,12 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    IEnumerator OutOfBounds()
+    private void OutOfBounds()
     {
-        for (;;)
+        int playerAway = (int)player.transform.position.y - 10;
+        if (playerAway >= gameObject.transform.position.y)
         {
-            int playerAway = (int)player.transform.position.y - 10;
-            if (playerAway >= gameObject.transform.position.y)
-            {
-                Destroy(gameObject);
-            }
-            yield return new WaitForSeconds(1f);
+            Destroy(gameObject);
         }
     }
 
