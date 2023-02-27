@@ -65,6 +65,8 @@ public class Obstacle : MonoBehaviour
     {
         if (this.gameObject.layer == LayerMask.NameToLayer("Water") && player.transform.parent == null)
         {
+            Debug.Log("Water");
+            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("WaterDeath");
             player.Death();
         }
     }
@@ -73,8 +75,10 @@ public class Obstacle : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && player.transform.parent == null)
         {
-            if (player.GetObstacleImmunity() == false)
+            if (player.GetObstacleImmunity() == false && player.enabled == true)
             {
+                Debug.Log("Car");
+                FindObjectOfType<GameManager>().GetSoundManager().PlaySound("CarDeath");
                 player.Death();
             }
             else
@@ -87,8 +91,8 @@ public class Obstacle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        CarDeath(collision);
         WaterDeath();
+        CarDeath(collision);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
