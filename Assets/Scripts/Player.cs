@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
         gameObject.SetActive(true);
         enabled = true;
         FindObjectOfType<ProceduralGeneration>().ResetMap();
+        FindObjectOfType<GameManager>().CleansePowerUps();
     }
 }
   

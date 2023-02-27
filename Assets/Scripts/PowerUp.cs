@@ -65,7 +65,7 @@ public class PowerUp : MonoBehaviour
     {
         doubleJumpText.text = "";
         gm.ChangeImageOpacity(doubleJumpImage, 1f);
-        gm.SetNotificationText("DOUBLE JUMP ACQUIRED!");
+        gm.SetNotificationText("Double Jump!");
         StopAllCoroutines();
         StartCoroutine(nameof(DeactivateDoubleJump), 0f);
     }
@@ -95,7 +95,7 @@ public class PowerUp : MonoBehaviour
     {
         timeSlowText.text = "";
         gm.ChangeImageOpacity(timeSlowImage, 1f);
-        gm.SetNotificationText("TIME SLOW ACQUIRED!");
+        gm.SetNotificationText("Time Slow!");
         StopAllCoroutines();
         StartCoroutine(nameof(DeactivateTimeSlow), 0f);
     }
@@ -124,7 +124,7 @@ public class PowerUp : MonoBehaviour
     private void ObstacleImmunity()
     {
         gm.ChangeImageOpacity(immunityImage, 1f);
-        gm.SetNotificationText("IMMUNITY ACQUIRED!");
+        gm.SetNotificationText("Immunity!");
         player.SetObstacleImmunity(true);
         Destroy(this.gameObject);
     }

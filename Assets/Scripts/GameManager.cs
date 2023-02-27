@@ -16,15 +16,16 @@ public class GameManager : MonoBehaviour
     private Vector3 leftEdge;
     private Vector3 rightEdge;
 
+    [Header("Game Objects")]
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject menuUI;
     [SerializeField] private GameObject gamePlayUI;
-    [SerializeField] private GameObject notificationObject;
-
+    [Header("Images")]
     [SerializeField] private Image doubleJumpImage;
     [SerializeField] private Image timeSlowImage;
     [SerializeField] private Image immunityImage;
-
+    [Header("Texts")]
+    [SerializeField] private Text notificationText;
     [SerializeField] private Text endScoreText;
     [SerializeField] private Text highestScoreAchievedText;
     [SerializeField] private Text doubleJumpText;
@@ -46,8 +47,7 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         ResetScore();
-        gameOverUI.SetActive(false);
-        gamePlayUI.SetActive(true);
+        ResetUI();
         Time.timeScale = 1f;
         player.Respawn();
         player.enabled = true;
@@ -70,6 +70,12 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         currentHighestScore = 0;
         bonusScore = 0;
+    }
+
+    private void ResetUI()
+    {
+        gameOverUI.SetActive(false);
+        gamePlayUI.SetActive(true);
     }
 
     public int GetScore()
@@ -108,7 +114,7 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
         gamePlayUI.SetActive(false);
-        notificationObject.SetActive(false);
+        notificationText.enabled = false;
         endScoreText.text = score.ToString();
         highestScoreAchievedText.text = highestScoreAchieved.ToString();
 
@@ -150,6 +156,18 @@ public class GameManager : MonoBehaviour
         player.enabled = true;
     }
 
+    public void CleansePowerUps()
+    {
+        Time.timeScale = 1f;
+        player.ChangeBlockDistance(1);
+        player.SetObstacleImmunity(false);
+        ChangeImageOpacity(doubleJumpImage, 0.5f);
+        ChangeImageOpacity(timeSlowImage, 0.5f);
+        ChangeImageOpacity(immunityImage, 0.5f);
+        doubleJumpText.enabled = false;
+        timeSlowText.enabled = false;
+    }
+
     public SoundManager GetSoundManager()
     {
         return sm;
@@ -182,8 +200,11 @@ public class GameManager : MonoBehaviour
 
     public void SetNotificationText(string text)
     {
-        notificationObject.SetActive(true);
-        notificationObject.GetComponentInChildren<Text>().text = text;
+        notificationText.gameObject.SetActive(true);
+        notificationText.text = text;
+        Vector2 notificationPos = new Vector2(player.transform.position.x, player.transform.position.y+1);
+        Debug.Log("Player: " + player.transform.position + ", Notification: " + notificationPos);
+        notificationText.transform.position = notificationPos;
         StopAllCoroutines();
         StartCoroutine(nameof(WipeText), 0f);
     }
@@ -196,7 +217,7 @@ public class GameManager : MonoBehaviour
     IEnumerator WipeText()
     {
         yield return new WaitForSeconds(2);
-        notificationObject.SetActive(false);
+        notificationText.gameObject.SetActive(false);
     }
 
     private void CheckPlayerOnMap()
