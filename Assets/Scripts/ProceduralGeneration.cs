@@ -14,6 +14,8 @@ public class ProceduralGeneration : MonoBehaviour
     private int ignoreSideWalk = ignore;
     private int ignoreWater = ignore - 1;
     private int ignoreRoad = ignore - 1;
+    private int laneSpeed;
+    private int previousLaneSpeed;
 
     [SerializeField] private Sprite[] carSprites;
     [Header("Game Objects")]
@@ -33,6 +35,11 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] private int maxRoadSize;
     [SerializeField] private int minWaterSize;
     [SerializeField] private int maxWaterSize;
+    [Header("Cars")]
+    [SerializeField] private int minCars;
+    [SerializeField] private int maxCars;
+    [SerializeField] private int minCarSpeed;
+    [SerializeField] private int maxCarSpeed;
     [Header("Turtles")]
     [SerializeField] private int minTurtles;
     [SerializeField] private int maxTurtles;
@@ -52,7 +59,7 @@ public class ProceduralGeneration : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<Player>();
-        ResetMap();
+        //ResetMap();
     }
 
     private void Update()
@@ -115,22 +122,13 @@ public class ProceduralGeneration : MonoBehaviour
         }
     }
 
-    public void ResetMap()
-    {
-        foreach (Transform child in transform) {
-            Destroy(child.gameObject);
-        }
-        GenerateBarrier(-2);
-        GenerateSidewalk(0);
-        Generate((int)player.transform.position.y + 1, lanes);
-    }
-
     private void GenerateRoad(int y)
     {
         for (int j = y; j < (y+Random.Range(minRoadSize, maxRoadSize)); j++)
         {
             GameObject roadParent = SpawnObj(road, 0, j);
-            GenerateCar(j, Random.Range(1,5), roadParent, GetDirection(), RandomSpeed(1,4));
+            RandomSpeed(minCarSpeed, maxCarSpeed);
+            GenerateCar(j, Random.Range(minCars, maxCars), roadParent, GetDirection(), laneSpeed);
             ignoreRoad = ignore - 1;
             i++;
         }
@@ -143,12 +141,13 @@ public class ProceduralGeneration : MonoBehaviour
             GameObject waterParent = SpawnObj(water, 0, j);
             if (GetDirection() == Vector2.right)
             {
-                GenerateWaterObj(j, Random.Range(minLogs, maxLogs),waterParent, log, GetDirection(), RandomSpeed(logMinSpeed, logMaxSpeed));
+                RandomSpeed(logMinSpeed, logMaxSpeed);
+                GenerateWaterObj(j, Random.Range(minLogs, maxLogs),waterParent, log, GetDirection(), laneSpeed);
             } else
             {
-                GenerateWaterObj(j, Random.Range(minTurtles, maxTurtles),waterParent, turtle, GetDirection(), RandomSpeed(turtleMinSpeed, turtleMaxSpeed));
+                RandomSpeed(turtleMinSpeed, turtleMaxSpeed);
+                GenerateWaterObj(j, Random.Range(minTurtles, maxTurtles),waterParent, turtle, GetDirection(), laneSpeed);
             }
-            
             ignoreWater = ignore - 1;
             i++;
         }
@@ -165,29 +164,7 @@ public class ProceduralGeneration : MonoBehaviour
         SpawnObj(barrier, 0, y);
     }
 
-    private int RandomSpeed(int x, int y)
-    {
-        return Random.Range(x, y);
-    }
-
-    private Vector2 GetDirection()
-    {
-        Vector2[] directions = { Vector2.left, Vector2.right };
-        return directions[Random.Range(0, 2)];
-    }
-
-    private int[] CalculateSpawnPoints(int n)
-    {
-        int[] spArray = new int[n + 1]; //spawn points
-        spArray[0] = 1;
-        for (int k = 1; k < spArray.Length; k++)
-        {
-            spArray[k] = k * (laneWidth / n);
-        }
-        return spArray;
-    }
-
-    private void GenerateCar(int y, int n,GameObject parentObj, Vector2 direction, float speed)
+    private void GenerateCar(int y, int n, GameObject parentObj, Vector2 direction, int speed)
     {
         Sprite sprite = carSprites[Random.Range(0, 9)];
         int[] spArray = CalculateSpawnPoints(n);
@@ -197,7 +174,7 @@ public class ProceduralGeneration : MonoBehaviour
         }
     }
 
-    private void GenerateWaterObj(int y, int n, GameObject parentObj, GameObject obj, Vector2 direction, float speed)
+    private void GenerateWaterObj(int y, int n, GameObject parentObj, GameObject obj, Vector2 direction, int speed)
     {
         int[] spArray = CalculateSpawnPoints(n);
         for (int j = 0; j < n; j++)
@@ -241,7 +218,7 @@ public class ProceduralGeneration : MonoBehaviour
     }
 
     // Spawn Moving Objects.
-    private void SpawnObj(GameObject parentObj, GameObject obj, int width, int height, Vector2 direction, float speed, double size, Sprite sprite)
+    private void SpawnObj(GameObject parentObj, GameObject obj, int width, int height, Vector2 direction, int speed, double size, Sprite sprite)
     {
         obj = Instantiate(obj, new Vector2(width, height), Quaternion.identity);
 
@@ -259,5 +236,43 @@ public class ProceduralGeneration : MonoBehaviour
         }
 
         obj.transform.parent = parentObj.transform;
+    }
+
+    private void RandomSpeed(int x, int y)
+    {
+        laneSpeed = Random.Range(x, y);
+        if (laneSpeed == previousLaneSpeed)
+        {
+            RandomSpeed(x, y);
+        }
+        previousLaneSpeed = laneSpeed;
+    }
+
+    public void ResetMap()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GenerateBarrier(-2);
+        GenerateSidewalk(0);
+        Generate((int)player.transform.position.y + 1, lanes);
+    }
+
+    private Vector2 GetDirection()
+    {
+        Vector2[] directions = { Vector2.left, Vector2.right };
+        return directions[Random.Range(0, 2)];
+    }
+
+    private int[] CalculateSpawnPoints(int n)
+    {
+        int[] spArray = new int[n + 1]; //spawn points
+        spArray[0] = 1;
+        for (int k = 1; k < spArray.Length; k++)
+        {
+            spArray[k] = k * (laneWidth / n);
+        }
+        return spArray;
     }
 }

@@ -1157,6 +1157,10 @@ MonoBehaviour:
   maxRoadSize: 8
   minWaterSize: 4
   maxWaterSize: 7
+  minCars: 2
+  maxCars: 5
+  minCarSpeed: 1
+  maxCarSpeed: 4
   minTurtles: 3
   maxTurtles: 9
   turtleMinSpeed: 1
@@ -4599,11 +4603,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: PlayerDeath
-    clip: {fileID: 8300000, guid: ebac993c3fe7c3549a05f26fe8e5c1ac, type: 3}
-    loop: 0
-    volume: 0.3
-    pitch: 1
   - name: Theme
     clip: {fileID: 8300000, guid: f547192c07b915c45b2e45ecbc555704, type: 3}
     loop: 1

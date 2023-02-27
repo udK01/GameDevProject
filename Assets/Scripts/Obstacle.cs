@@ -65,7 +65,6 @@ public class Obstacle : MonoBehaviour
     {
         if (this.gameObject.layer == LayerMask.NameToLayer("Water") && player.transform.parent == null)
         {
-            Debug.Log("Water");
             FindObjectOfType<GameManager>().GetSoundManager().PlaySound("WaterDeath");
             player.Death();
         }
@@ -77,7 +76,6 @@ public class Obstacle : MonoBehaviour
         {
             if (player.GetObstacleImmunity() == false && player.enabled == true)
             {
-                Debug.Log("Car");
                 FindObjectOfType<GameManager>().GetSoundManager().PlaySound("CarDeath");
                 player.Death();
             }

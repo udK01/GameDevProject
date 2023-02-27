@@ -70,7 +70,6 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
-        //FindObjectOfType<GameManager>().GetSoundManager().PlaySound("PlayerDeath");
         enabled = false;
         FindObjectOfType<GameManager>().GameOver();
     }
