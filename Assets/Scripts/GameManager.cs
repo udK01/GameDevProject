@@ -203,7 +203,6 @@ public class GameManager : MonoBehaviour
         notificationText.gameObject.SetActive(true);
         notificationText.text = text;
         Vector2 notificationPos = new Vector2(player.transform.position.x, player.transform.position.y+1);
-        Debug.Log("Player: " + player.transform.position + ", Notification: " + notificationPos);
         notificationText.transform.position = notificationPos;
         StopAllCoroutines();
         StartCoroutine(nameof(WipeText), 0f);

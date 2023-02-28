@@ -1,24 +1,24 @@
 using UnityEngine;
 
-public enum Options { ROAD, SIDEWALK, WATER, REVERSEROAD }
+public enum Options { ROAD, WATER, REVERSEROAD }
 
 public class ProceduralGeneration : MonoBehaviour
 {
     private Options option;
     private Player player;
-    private const int ignore = 2;
+    private const int ignore = 1;
     private const int laneWidth = 14;
     private const int obstacleSpawnDistance = 10;
 
     private int i;
-    private int ignoreSideWalk = ignore;
-    private int ignoreWater = ignore - 1;
-    private int ignoreRoad = ignore - 1;
-    private int ignoreReverseRoad = ignore - 1;
+    private int ignoreWater = ignore;
+    private int ignoreRoad = ignore;
+    private int ignoreReverseRoad = ignore;
     private int laneSpeed;
     private int previousLaneSpeed;
 
     [SerializeField] private Sprite[] carSprites;
+    [SerializeField] private Sprite[] tractorSprites;
     [Header("Game Objects")]
     [SerializeField] private GameObject road;
     [SerializeField] private GameObject reverseRoad;
@@ -84,7 +84,7 @@ public class ProceduralGeneration : MonoBehaviour
     {
         for (i = s; i < f; i++)
         {
-            option = (Options)Random.Range(0, 4);
+            option = (Options)Random.Range(0, 3);
             switch (option)
             {
                 case Options.ROAD:
@@ -109,16 +109,6 @@ public class ProceduralGeneration : MonoBehaviour
                         ignoreReverseRoad--;
                     }
                     break;
-                case Options.SIDEWALK:
-                    if (ignoreSideWalk == 0)
-                    {
-                        GenerateSidewalk(i);
-                    } else
-                    {
-                        i--;
-                        ignoreSideWalk--;
-                    }
-                    break;
                 case Options.WATER:
                     if (ignoreWater == 0)
                     {
@@ -141,16 +131,17 @@ public class ProceduralGeneration : MonoBehaviour
             case 1:
                 for (int j = y; j < (y + Random.Range(minRoadSize, maxRoadSize)); j++)
                 {
-                    GenerateRoadType(j, ignoreRoad, road); // Regular Road.
+                    GenerateRoadType(j, ignoreRoad, road, carSprites); // Regular Road.
                 }
                 break;
             case 2:
                 for (int j = y; j < (y + Random.Range(minRoadSize, maxRoadSize)); j++)
                 {
-                    GenerateRoadType(j, ignoreReverseRoad, reverseRoad); // Reverse Road.
+                    GenerateRoadType(j, ignoreReverseRoad, reverseRoad, tractorSprites); // Reverse Road.
                 }
                 break;
         }
+        GenerateSidewalk(i+1);
     }
 
     private void GenerateWater(int y)
@@ -170,12 +161,13 @@ public class ProceduralGeneration : MonoBehaviour
             ignoreWater = ignore - 1;
             i++;
         }
+        GenerateSidewalk(i+1);
     }
 
     private void GenerateSidewalk(int y)
     {
         SpawnObj(sidewalk, 0, y);
-        ignoreSideWalk = ignore;
+        i++;
     }
 
     public void GenerateBarrier(int y)
@@ -183,18 +175,18 @@ public class ProceduralGeneration : MonoBehaviour
         SpawnObj(barrier, 0, y);
     }
 
-    private void GenerateRoadType(int j, int ignoreType, GameObject roadType)
+    private void GenerateRoadType(int j, int ignoreType, GameObject roadType, Sprite[] sprites)
     {
         GameObject roadParent = SpawnObj(roadType, 0, j);
         RandomSpeed(minCarSpeed, maxCarSpeed);
-        GenerateCar(j, Random.Range(minCars, maxCars), roadParent, GetDirection(), laneSpeed);
+        GenerateRoadObj(j, Random.Range(minCars, maxCars), roadParent, GetDirection(), laneSpeed, sprites);
         ignoreType = ignore - 1;
         i++;
     }
 
-    private void GenerateCar(int y, int n, GameObject parentObj, Vector2 direction, int speed)
+    private void GenerateRoadObj(int y, int n, GameObject parentObj, Vector2 direction, int speed, Sprite[] sprites)
     {
-        Sprite sprite = carSprites[Random.Range(0, 9)];
+        Sprite sprite = sprites[Random.Range(0, sprites.Length)];
         int[] spArray = CalculateSpawnPoints(n);
         for (int j = 0; j < n; j++)
         {
@@ -284,7 +276,7 @@ public class ProceduralGeneration : MonoBehaviour
         }
         GenerateBarrier(-2);
         GenerateSidewalk(0);
-        Generate((int)player.transform.position.y + 1, lanes);
+        Generate((int)player.transform.position.y+1, lanes);
     }
 
     private Vector2 GetDirection()
