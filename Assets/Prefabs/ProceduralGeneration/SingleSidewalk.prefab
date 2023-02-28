@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 6273021517003748955}
   - component: {fileID: 6273021517003748952}
   - component: {fileID: 8026067331561576402}
+  - component: {fileID: 9006538087647270446}
   m_Layer: 0
   m_Name: SingleSidewalk
   m_TagString: Untagged
@@ -218,3 +219,15 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   speed: 0
   size: 0
+--- !u!114 &9006538087647270446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6273021517003748953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a406bfe46dfd89a48bdd18b088baaf7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

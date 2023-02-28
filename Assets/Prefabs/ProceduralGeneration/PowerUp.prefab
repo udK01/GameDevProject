@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 106732387933484872}
   - component: {fileID: 106732387933484873}
   - component: {fileID: 9119661458006304096}
+  - component: {fileID: 3359165607139362161}
   m_Layer: 9
   m_Name: PowerUp
   m_TagString: Untagged
@@ -126,9 +127,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpBoostDuration: 5
   timeSlowDuration: 3
-  doubleJumpObject: {fileID: 0}
-  timeSlowObject: {fileID: 0}
-  immunityObject: {fileID: 0}
-  jumpBoostDurationText: {fileID: 0}
-  timeSlowDurationText: {fileID: 0}
-  notificationText: {fileID: 0}
+--- !u!114 &3359165607139362161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106732387933484876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a406bfe46dfd89a48bdd18b088baaf7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

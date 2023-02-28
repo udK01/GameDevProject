@@ -1144,6 +1144,7 @@ MonoBehaviour:
   - {fileID: -124939367, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
   - {fileID: -1339999015, guid: cf2b7f46a9f0c0048ab9580eb0545ad7, type: 3}
   road: {fileID: 8306147479221187998, guid: e74eb85f515933044b0eebc7840a7ff9, type: 3}
+  reverseRoad: {fileID: 8306147479221187998, guid: db1792e773da2064f9f4370869cbee39, type: 3}
   sidewalk: {fileID: 6273021517003748953, guid: a7dd36e9bf592cd419907b05b2997279, type: 3}
   water: {fileID: 561958267732556493, guid: 0221f570b9234a249b0ea4089543a589, type: 3}
   barrier: {fileID: 8732881355870057763, guid: a6053edd2c1749349b03e862ebd618d2, type: 3}

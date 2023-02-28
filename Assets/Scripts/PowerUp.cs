@@ -27,21 +27,6 @@ public class PowerUp : MonoBehaviour
         immunityImage = gm.GetImmunityImage();
         doubleJumpText = gm.GetDoubleJumpText();
         timeSlowText = gm.GetTimeSlowText();
-        StartCoroutine(nameof(OutOfBounds), 0f);
-    }
-
-    private void Start()
-    {
-        InvokeRepeating(nameof(OutOfBounds), 0f, 1f);
-    }
-
-    private void OutOfBounds()
-    {
-        int playerAway = (int)player.transform.position.y - 10;
-        if (playerAway >= gameObject.transform.position.y)
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void GivePowerUp()

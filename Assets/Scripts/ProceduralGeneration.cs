@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public enum Options { ROAD, SIDEWALK, WATER, REVERSEROAD }
 
@@ -71,7 +70,7 @@ public class ProceduralGeneration : MonoBehaviour
 
     private void DetectAndSpawnObstacle()
     {
-        Vector3 boxPosition = new Vector3(0, player.transform.position.y + obstacleSpawnDistance, 0);
+        Vector2 boxPosition = new Vector3(0, player.transform.position.y + obstacleSpawnDistance);
         Vector2 obstacleSize = new Vector2(1, 1);
         Collider2D obstacleExists = Physics2D.OverlapBox(boxPosition, obstacleSize, LayerMask.GetMask("Obstacle"));
         if (!obstacleExists && player.transform.position.y != 0)
@@ -95,7 +94,8 @@ public class ProceduralGeneration : MonoBehaviour
                     }
                     else
                     {
-                        DecrementType(ignoreRoad);
+                        i--;
+                        ignoreRoad--;
                     }
                     break;
                 case Options.REVERSEROAD:
@@ -105,7 +105,8 @@ public class ProceduralGeneration : MonoBehaviour
                     }
                     else
                     {
-                        DecrementType(ignoreReverseRoad);
+                        i--;
+                        ignoreReverseRoad--;
                     }
                     break;
                 case Options.SIDEWALK:
@@ -114,7 +115,8 @@ public class ProceduralGeneration : MonoBehaviour
                         GenerateSidewalk(i);
                     } else
                     {
-                        DecrementType(ignoreSideWalk);
+                        i--;
+                        ignoreSideWalk--;
                     }
                     break;
                 case Options.WATER:
@@ -124,7 +126,8 @@ public class ProceduralGeneration : MonoBehaviour
                     }
                     else
                     {
-                        DecrementType(ignoreWater);
+                        i--;
+                        ignoreWater--;
                     }
                     break;
             }
@@ -263,12 +266,6 @@ public class ProceduralGeneration : MonoBehaviour
         obj.transform.parent = parentObj.transform;
     }
 
-    private void DecrementType(int ignoreType)
-    {
-        i--;
-        ignoreType--;
-    }
-
     private void RandomSpeed(int x, int y)
     {
         laneSpeed = Random.Range(x, y);
@@ -298,7 +295,7 @@ public class ProceduralGeneration : MonoBehaviour
 
     private int[] CalculateSpawnPoints(int n)
     {
-        int[] spArray = new int[n + 1]; //spawn points
+        int[] spArray = new int[n + 1]; //Spawn Points
         spArray[0] = 1;
         for (int k = 1; k < spArray.Length; k++)
         {

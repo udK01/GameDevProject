@@ -20,11 +20,6 @@ public class Obstacle : MonoBehaviour
         rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
     }
 
-    private void Start()
-    {
-        InvokeRepeating(nameof(OutOfBounds), 0f, 1f);
-    }
-
     private void Update()
     {
         if (direction.x > 0 && (transform.position.x - size) > rightEdge.x)
@@ -42,15 +37,6 @@ public class Obstacle : MonoBehaviour
         else
         {
             transform.Translate(direction * speed * Time.deltaTime);
-        }
-    }
-
-    private void OutOfBounds()
-    {
-        int playerAway = (int)player.transform.position.y - 10;
-        if (playerAway >= gameObject.transform.position.y)
-        {
-            Destroy(gameObject);
         }
     }
 
