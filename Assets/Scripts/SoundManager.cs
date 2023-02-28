@@ -18,11 +18,19 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Play Theme Music On Start.
+    /// </summary>
     private void Start()
     {
         PlaySound("Theme");
     }
 
+    /// <summary>
+    /// Attempt to find sound effect, play it if 
+    /// it exists and return a error message otherwise.
+    /// </summary>
+    /// <param name="name"> Sound Effect Name </param>
     public void PlaySound(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.GetName() == name);

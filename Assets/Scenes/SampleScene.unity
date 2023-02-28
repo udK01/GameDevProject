@@ -1178,7 +1178,7 @@ MonoBehaviour:
   lootRadius: 10
   extraLootSpawnDistance: 7
   starChance: 100
-  powerUpChance: 35
+  powerUpChance: 50
 --- !u!4 &265661715
 Transform:
   m_ObjectHideFlags: 0

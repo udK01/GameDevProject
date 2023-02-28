@@ -29,6 +29,9 @@ public class PowerUp : MonoBehaviour
         timeSlowText = gm.GetTimeSlowText();
     }
 
+    /// <summary>
+    /// Randomly assigns a power up.
+    /// </summary>
     public void GivePowerUp()
     {
         powerUp = (PowerUps)Random.Range(0, 3);
@@ -46,6 +49,10 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Clears the double jump text, changes the image's opacity,
+    /// throws a notification and runs the deactivation method.
+    /// </summary>
     private void DoubleJump()
     {
         doubleJumpText.text = "";
@@ -55,17 +62,27 @@ public class PowerUp : MonoBehaviour
         StartCoroutine(nameof(DeactivateDoubleJump), 0f);
     }
 
+    /// <summary>
+    /// Doubles the block distance, starts the powerup countdown,
+    /// waits for jumpBoostDuration (5sec), turns off text and image, 
+    /// resets player jump distance and destroys the powerup.
+    /// </summary>
+    /// <returns> Nothing </returns>
     IEnumerator DeactivateDoubleJump()
     {
-        player.ChangeBlockDistance(2);
+        player.SetBlockDistance(2);
         StartCoroutine(nameof(CountDownDoubleJump), 0f);
         yield return new WaitForSeconds(jumpBoostDuration);
         gm.ChangeImageOpacity(doubleJumpImage, 0.5f);
         doubleJumpText.enabled = false;
-        player.ChangeBlockDistance(1);
+        player.SetBlockDistance(1);
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// Every 1 second decrements the powerup counter once.
+    /// </summary>
+    /// <returns> Nothing </returns>
     IEnumerator CountDownDoubleJump()
     {
         doubleJumpText.enabled = true;
@@ -76,6 +93,10 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Clears time slow text, changes the image's opacity,
+    /// throws a notification and runs the deactivation method.
+    /// </summary>
     private void TimeSlow()
     {
         timeSlowText.text = "";
@@ -85,6 +106,12 @@ public class PowerUp : MonoBehaviour
         StartCoroutine(nameof(DeactivateTimeSlow), 0f);
     }
 
+    /// <summary>
+    /// Halves the local  time, starts the powerup countdown,
+    /// waits timeSlowDuration (3sec), turns off text and image,
+    /// resets time and destroys the powerup.
+    /// </summary>
+    /// <returns> Nothing </returns>
     IEnumerator DeactivateTimeSlow()
     {
         Time.timeScale = 0.5f;
@@ -96,6 +123,10 @@ public class PowerUp : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// Every 1 second decrements the powerup counter once.
+    /// </summary>
+    /// <returns> Nothing </returns>
     IEnumerator CountDownTimeSlow()
     {
         timeSlowText.enabled = true;
@@ -106,6 +137,10 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Changes the image's opacity, throws a notification 
+    /// and destroys the powerup.
+    /// </summary>
     private void ObstacleImmunity()
     {
         gm.ChangeImageOpacity(immunityImage, 1f);
@@ -114,6 +149,10 @@ public class PowerUp : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    /// <summary>
+    /// On collision, give powerup, disabled collider and sprite.
+    /// </summary>
+    /// <param name="collision"> Object Collided With </param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))

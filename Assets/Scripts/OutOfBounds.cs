@@ -11,11 +11,18 @@ public class OutOfBounds : MonoBehaviour
         player = FindObjectOfType<Player>();
     }
 
+    /// <summary>
+    /// Check if the object is out of bounds every 1second.
+    /// </summary>
     private void Start()
     {
         InvokeRepeating(nameof(CheckBounds), 0f, 1f);
     }
 
+    /// <summary>
+    /// Check if the object is 10 blocks behind 
+    /// the player and remove if it is.
+    /// </summary>
     public void CheckBounds()
     {
         int playerAway = (int)player.transform.position.y - 10;

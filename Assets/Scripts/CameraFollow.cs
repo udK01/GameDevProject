@@ -10,6 +10,10 @@ public class CameraFollow : MonoBehaviour
         player = FindObjectOfType<Player>();
     }
 
+    /// <summary>
+    /// Smoothly adjusts the camera's y position 
+    /// to match the player's current y position.
+    /// </summary>
     private void Update()
     {
         float x = gameObject.transform.position.x;

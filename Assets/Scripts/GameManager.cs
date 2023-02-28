@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
         highestScoreAchieved = PlayerPrefs.GetInt("Score");
     }
 
+    /// <summary>
+    /// Reset player, ui and map to default.
+    /// </summary>
     public void NewGame()
     {
         ResetScore();
@@ -53,18 +56,28 @@ public class GameManager : MonoBehaviour
         player.enabled = true;
     }
 
+    /// <summary>
+    /// Exit the game.
+    /// </summary>
     public void QuitGame()
     {
         Debug.Log("Quit");
         Application.Quit();
     }
 
+    /// <summary>
+    /// Setter for private variable.
+    /// </summary>
+    /// <param name="score"> Score From Advancing Lanes </param>
     public void SetScore(int score)
     {
         this.score = score;
         highscoreText.text = score.ToString();
     }
 
+    /// <summary>
+    /// Resets the score.
+    /// </summary>
     private void ResetScore()
     {
         SetScore(0);
@@ -72,17 +85,28 @@ public class GameManager : MonoBehaviour
         bonusScore = 0;
     }
 
+    /// <summary>
+    /// Resets UI.
+    /// </summary>
     private void ResetUI()
     {
         gameOverUI.SetActive(false);
         gamePlayUI.SetActive(true);
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Score </returns>
     public int GetScore()
     {
         return score;
     }
 
+    /// <summary>
+    /// Calculates score based on player's current position and bonus points.
+    /// If a new highscore is reached it saves that.
+    /// </summary>
     private void CalculateScore()
     {
         Vector3 currentPos = player.transform.position;
@@ -99,16 +123,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Setter for private variable.
+    /// </summary>
+    /// <param name="bonusScore"> Bonus Score From Stars </param>
     public void SetBonusScore(int bonusScore)
     {
         this.bonusScore = bonusScore;
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Bonus Score </returns>
     public int GetBonusScore()
     {
         return bonusScore;
     }
 
+    /// <summary>
+    /// Disables the player, activates the game over UI, 
+    /// and starts listening for the replay key.
+    /// </summary>
     public void GameOver()
     {
         player.gameObject.SetActive(false);
@@ -122,6 +158,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(PlayAgain());
     }
 
+    /// <summary>
+    /// Listens to the replay key (R) and 
+    /// starts a new game once pressed.
+    /// </summary>
+    /// <returns> Nothing </returns>
     private IEnumerator PlayAgain()
     {
         bool playAgain = false;
@@ -139,6 +180,9 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(NewGame), 1f);
     }
 
+    /// <summary>
+    /// Freezes the game and shows the Menu.
+    /// </summary>
     private void PauseGame()
     {
         if (Input.GetKey(KeyCode.Escape))
@@ -150,16 +194,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enables the player, and unfreezes the game.
+    /// </summary>
     public void UnPauseGame()
     {
         Time.timeScale = 1f;
         player.enabled = true;
     }
 
+    /// <summary>
+    /// Clears all powerups effects, and resets their display.
+    /// </summary>
     public void CleansePowerUps()
     {
         Time.timeScale = 1f;
-        player.ChangeBlockDistance(1);
+        player.SetBlockDistance(1);
         player.SetObstacleImmunity(false);
         ChangeImageOpacity(doubleJumpImage, 0.5f);
         ChangeImageOpacity(timeSlowImage, 0.5f);
@@ -168,36 +218,64 @@ public class GameManager : MonoBehaviour
         timeSlowText.enabled = false;
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Sound Manager </returns>
     public SoundManager GetSoundManager()
     {
         return sm;
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Double Jump Image </returns>
     public Image GetDoubleJumpImage()
     {
         return doubleJumpImage;
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Time Slow Image </returns>
     public Image GetTimeSlowImage()
     {
         return timeSlowImage;
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Immunity Image </returns>
     public Image GetImmunityImage()
     {
         return immunityImage;
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Double Jump Text </returns>
     public Text GetDoubleJumpText()
     {
         return doubleJumpText;
     }
 
+    /// <summary>
+    /// Getter for private variable.
+    /// </summary>
+    /// <returns> Time Slow Text </returns>
     public Text GetTimeSlowText()
     {
         return timeSlowText;
     }
 
+    /// <summary>
+    /// Setter for private variable.
+    /// </summary>
+    /// <param name="text"> String To Display </param>
     public void SetNotificationText(string text)
     {
         notificationText.gameObject.SetActive(true);
@@ -208,17 +286,30 @@ public class GameManager : MonoBehaviour
         StartCoroutine(nameof(WipeText), 0f);
     }
 
+    /// <summary>
+    /// Changes the image's opacity to the specified amount.
+    /// </summary>
+    /// <param name="img"> Image To Change </param>
+    /// <param name="opacity"> Opacity To Change To </param>
     public void ChangeImageOpacity(Image img, float opacity)
     {
         img.color = new Color(img.color.r, img.color.g, img.color.b, opacity);
     }
 
+    /// <summary>
+    /// Waits for 2seconds and clears notification text.
+    /// </summary>
+    /// <returns> Nothing </returns>
     IEnumerator WipeText()
     {
         yield return new WaitForSeconds(2);
         notificationText.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Checks if player is on the map and disables 
+    /// player if not, re-enables them if they are.
+    /// </summary>
     private void CheckPlayerOnMap()
     {
         if (player.transform.position.x < leftEdge.x)
@@ -239,6 +330,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Every Update checks if player wants to pause, 
+    /// calculates score and ensures player is on the map.
+    /// </summary>
     private void Update()
     {
         CheckPlayerOnMap();
