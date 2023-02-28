@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public enum Options { ROAD, SIDEWALK, WATER }
+public enum Options { ROAD, SIDEWALK, WATER, REVERSEROAD }
 
 public class ProceduralGeneration : MonoBehaviour
 {
@@ -14,12 +15,14 @@ public class ProceduralGeneration : MonoBehaviour
     private int ignoreSideWalk = ignore;
     private int ignoreWater = ignore - 1;
     private int ignoreRoad = ignore - 1;
+    private int ignoreReverseRoad = ignore - 1;
     private int laneSpeed;
     private int previousLaneSpeed;
 
     [SerializeField] private Sprite[] carSprites;
     [Header("Game Objects")]
     [SerializeField] private GameObject road;
+    [SerializeField] private GameObject reverseRoad;
     [SerializeField] private GameObject sidewalk;
     [SerializeField] private GameObject water;
     [SerializeField] private GameObject barrier;
@@ -59,7 +62,6 @@ public class ProceduralGeneration : MonoBehaviour
     private void Awake()
     {
         player = FindObjectOfType<Player>();
-        //ResetMap();
     }
 
     private void Update()
@@ -83,18 +85,27 @@ public class ProceduralGeneration : MonoBehaviour
     {
         for (i = s; i < f; i++)
         {
-            option = (Options)Random.Range(0, 3);
+            option = (Options)Random.Range(0, 4);
             switch (option)
             {
                 case Options.ROAD:
                     if (ignoreRoad == 0)
                     {
-                        GenerateRoad(i--);
+                        GenerateRoad(i--, 1);
                     }
                     else
                     {
-                        i--;
-                        ignoreRoad--;
+                        DecrementType(ignoreRoad);
+                    }
+                    break;
+                case Options.REVERSEROAD:
+                    if (ignoreReverseRoad == 0)
+                    {
+                        GenerateRoad(i--, 2);
+                    }
+                    else
+                    {
+                        DecrementType(ignoreReverseRoad);
                     }
                     break;
                 case Options.SIDEWALK:
@@ -103,8 +114,7 @@ public class ProceduralGeneration : MonoBehaviour
                         GenerateSidewalk(i);
                     } else
                     {
-                        i--;
-                        ignoreSideWalk--;
+                        DecrementType(ignoreSideWalk);
                     }
                     break;
                 case Options.WATER:
@@ -114,23 +124,29 @@ public class ProceduralGeneration : MonoBehaviour
                     }
                     else
                     {
-                        i--;
-                        ignoreWater--;
+                        DecrementType(ignoreWater);
                     }
                     break;
             }
         }
     }
 
-    private void GenerateRoad(int y)
+    private void GenerateRoad(int y, int roadType)
     {
-        for (int j = y; j < (y+Random.Range(minRoadSize, maxRoadSize)); j++)
+        switch (roadType)
         {
-            GameObject roadParent = SpawnObj(road, 0, j);
-            RandomSpeed(minCarSpeed, maxCarSpeed);
-            GenerateCar(j, Random.Range(minCars, maxCars), roadParent, GetDirection(), laneSpeed);
-            ignoreRoad = ignore - 1;
-            i++;
+            case 1:
+                for (int j = y; j < (y + Random.Range(minRoadSize, maxRoadSize)); j++)
+                {
+                    GenerateRoadType(j, ignoreRoad, road); // Regular Road.
+                }
+                break;
+            case 2:
+                for (int j = y; j < (y + Random.Range(minRoadSize, maxRoadSize)); j++)
+                {
+                    GenerateRoadType(j, ignoreReverseRoad, reverseRoad); // Reverse Road.
+                }
+                break;
         }
     }
 
@@ -162,6 +178,15 @@ public class ProceduralGeneration : MonoBehaviour
     public void GenerateBarrier(int y)
     {
         SpawnObj(barrier, 0, y);
+    }
+
+    private void GenerateRoadType(int j, int ignoreType, GameObject roadType)
+    {
+        GameObject roadParent = SpawnObj(roadType, 0, j);
+        RandomSpeed(minCarSpeed, maxCarSpeed);
+        GenerateCar(j, Random.Range(minCars, maxCars), roadParent, GetDirection(), laneSpeed);
+        ignoreType = ignore - 1;
+        i++;
     }
 
     private void GenerateCar(int y, int n, GameObject parentObj, Vector2 direction, int speed)
@@ -236,6 +261,12 @@ public class ProceduralGeneration : MonoBehaviour
         }
 
         obj.transform.parent = parentObj.transform;
+    }
+
+    private void DecrementType(int ignoreType)
+    {
+        i--;
+        ignoreType--;
     }
 
     private void RandomSpeed(int x, int y)
