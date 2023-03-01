@@ -39,6 +39,7 @@ public class StarMove : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("StarPickUp");
             gm.SetBonusScore(gm.GetBonusScore()+AmountToGive);
             Destroy(this.gameObject);
         }

@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverUI.SetActive(false);
         gamePlayUI.SetActive(true);
+        notificationText.enabled = true;
     }
 
     /// <summary>
@@ -282,8 +283,14 @@ public class GameManager : MonoBehaviour
         notificationText.text = text;
         Vector2 notificationPos = new Vector2(player.transform.position.x, player.transform.position.y+1);
         notificationText.transform.position = notificationPos;
-        StopAllCoroutines();
-        StartCoroutine(nameof(WipeText), 0f);
+    }
+
+    /// <summary>
+    /// Disables notification text game object.
+    /// </summary>
+    public void DisableNotificationText()
+    {
+        notificationText.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -294,16 +301,6 @@ public class GameManager : MonoBehaviour
     public void ChangeImageOpacity(Image img, float opacity)
     {
         img.color = new Color(img.color.r, img.color.g, img.color.b, opacity);
-    }
-
-    /// <summary>
-    /// Waits for 2seconds and clears notification text.
-    /// </summary>
-    /// <returns> Nothing </returns>
-    IEnumerator WipeText()
-    {
-        yield return new WaitForSeconds(2);
-        notificationText.gameObject.SetActive(false);
     }
 
     /// <summary>

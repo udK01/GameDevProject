@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum Options { ROAD, WATER, REVERSEROAD }
+public enum Options { ROAD, WATER, REVERSEROAD, LAVAROAD }
 
 public class ProceduralGeneration : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class ProceduralGeneration : MonoBehaviour
     private int ignoreWater = ignore;
     private int ignoreRoad = ignore;
     private int ignoreReverseRoad = ignore;
+    private int ignoreLavaRoad = ignore;
     private int laneSpeed;
     private int previousLaneSpeed;
 
@@ -22,6 +23,7 @@ public class ProceduralGeneration : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private GameObject road;
     [SerializeField] private GameObject reverseRoad;
+    [SerializeField] private GameObject lavaRoad;
     [SerializeField] private GameObject sidewalk;
     [SerializeField] private GameObject water;
     [SerializeField] private GameObject barrier;
@@ -93,7 +95,7 @@ public class ProceduralGeneration : MonoBehaviour
     {
         for (i = s; i < e; i++)
         {
-            option = (Options)Random.Range(0, 3);
+            option = (Options)Random.Range(0, 4);
             switch (option)
             {
                 case Options.ROAD:
@@ -116,6 +118,17 @@ public class ProceduralGeneration : MonoBehaviour
                     {
                         i--;
                         ignoreReverseRoad--;
+                    }
+                    break;
+                case Options.LAVAROAD:
+                    if (ignoreLavaRoad == 0)
+                    {
+                        GenerateRoad(i--, 3);
+                    }
+                    else
+                    {
+                        i--;
+                        ignoreLavaRoad--;
                     }
                     break;
                 case Options.WATER:
@@ -155,6 +168,12 @@ public class ProceduralGeneration : MonoBehaviour
                 for (int j = y; j < (y + Random.Range(minRoadSize, maxRoadSize)); j++)
                 {
                     GenerateRoadType(j, ignoreReverseRoad, reverseRoad, tractorSprites); // Reverse Road.
+                }
+                break;
+            case 3:
+                for (int j = y; j < (y + Random.Range(minRoadSize, maxRoadSize)); j++)
+                {
+                    GenerateRoadType(j, ignoreLavaRoad, lavaRoad, carSprites); // Reverse Road.
                 }
                 break;
         }

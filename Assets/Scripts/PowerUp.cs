@@ -158,6 +158,7 @@ public class PowerUp : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             GivePowerUp();
+            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("PowerUp");
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
