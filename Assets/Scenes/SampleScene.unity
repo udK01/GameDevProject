@@ -4635,6 +4635,11 @@ MonoBehaviour:
     loop: 0
     volume: 0.1
     pitch: 1
+  - name: LavaDamage
+    clip: {fileID: 8300000, guid: 56c596c678115a24aabffc104e42b6dd, type: 3}
+    loop: 0
+    volume: 0.1
+    pitch: 1
 --- !u!4 &1215445362
 Transform:
   m_ObjectHideFlags: 0

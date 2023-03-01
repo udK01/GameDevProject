@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class LavaRoad : MonoBehaviour
 {
-    private const int BASE_LAVA_TIME = 3;
     private Player player;
+    private const int BASE_LAVA_TIME = 4;
     private int LavaTime = BASE_LAVA_TIME;
 
     private void Awake()
@@ -46,8 +46,9 @@ public class LavaRoad : MonoBehaviour
         }
         else
         {
+            LavaTime--;
             FindObjectOfType<GameManager>().SetNotificationText(LavaTime.ToString());
+            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("LavaDamage");
         }
-        LavaTime--;
     }
 }

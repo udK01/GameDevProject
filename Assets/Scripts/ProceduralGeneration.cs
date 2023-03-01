@@ -6,15 +6,15 @@ public class ProceduralGeneration : MonoBehaviour
 {
     private Options option;
     private Player player;
-    private const int ignore = 1;
-    private const int laneWidth = 14;
-    private const int obstacleSpawnDistance = 10;
+    private const int IGNORE = 1;
+    private const int LANE_WIDTH = 14;
+    private const int OBSTACLE_SPAWN_DISTANCE = 10;
 
     private int i;
-    private int ignoreWater = ignore;
-    private int ignoreRoad = ignore;
-    private int ignoreReverseRoad = ignore;
-    private int ignoreLavaRoad = ignore;
+    private int ignoreWater = IGNORE;
+    private int ignoreRoad = IGNORE;
+    private int ignoreReverseRoad = IGNORE;
+    private int ignoreLavaRoad = IGNORE;
     private int laneSpeed;
     private int previousLaneSpeed;
 
@@ -76,7 +76,7 @@ public class ProceduralGeneration : MonoBehaviour
     /// </summary>
     private void DetectAndSpawnObstacle()
     {
-        Vector2 boxPosition = new Vector3(0, player.transform.position.y + obstacleSpawnDistance);
+        Vector2 boxPosition = new Vector3(0, player.transform.position.y + OBSTACLE_SPAWN_DISTANCE);
         Vector2 obstacleSize = new Vector2(1, 1);
         Collider2D obstacleExists = Physics2D.OverlapBox(boxPosition, obstacleSize, LayerMask.GetMask("Obstacle"));
         if (!obstacleExists && player.transform.position.y != 0)
@@ -202,7 +202,7 @@ public class ProceduralGeneration : MonoBehaviour
                 RandomSpeed(turtleMinSpeed, turtleMaxSpeed);
                 GenerateWaterObj(j, Random.Range(minTurtles, maxTurtles), waterParent, turtle, GetDirection(), laneSpeed);
             }
-            ignoreWater = ignore;
+            ignoreWater = IGNORE;
             i++;
         }
         GenerateSidewalk(i+1);
@@ -241,7 +241,7 @@ public class ProceduralGeneration : MonoBehaviour
         GameObject roadParent = SpawnObj(roadType, 0, j);
         RandomSpeed(minCarSpeed, maxCarSpeed);
         GenerateRoadObj(j, Random.Range(minCars, maxCars), roadParent, GetDirection(), laneSpeed, sprites);
-        ignoreType = ignore;
+        ignoreType = IGNORE;
         i++;
     }
 
@@ -320,7 +320,7 @@ public class ProceduralGeneration : MonoBehaviour
     {
         if (Random.Range(0, chance) == 1 && lootExists == null)
         {
-            SpawnObj(obj, Random.Range(-laneWidth / 2, laneWidth / 2), (int)lootPos.y);
+            SpawnObj(obj, Random.Range(-LANE_WIDTH / 2, LANE_WIDTH / 2), (int)lootPos.y);
         }
     }
 
@@ -426,7 +426,7 @@ public class ProceduralGeneration : MonoBehaviour
         spArray[0] = 1;
         for (int k = 1; k < spArray.Length; k++)
         {
-            spArray[k] = k * (laneWidth / n);
+            spArray[k] = k * (LANE_WIDTH / n);
         }
         return spArray;
     }
