@@ -3,7 +3,7 @@ using System;
 
 public class SoundManager : MonoBehaviour
 {
-
+    public static SoundManager Instance { get; private set; }
     [SerializeField] private Sound[] sounds;
 
     private void Awake()
@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        Instance = this;
         PlaySound("Theme");
     }
 

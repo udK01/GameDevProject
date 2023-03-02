@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Vector3 initialPos;
-    [SerializeField] private int blockDistance = 1;
-    [SerializeField] private bool obstacleImmunity;
+    public static Player Instance { get; private set; }
+    public bool reverseMove { get; set; } = false;
+    public bool obstacleImmunity { get; set; } = false;
+    public int blockDistance { get; set; } = 1;
 
-    private bool reverseMove = false;
+    private Vector3 initialPos;
     private KeyCode forward = KeyCode.W;
     private KeyCode left = KeyCode.A;
     private KeyCode right = KeyCode.D;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         initialPos = transform.position;
+        Instance = this;
     }
 
     /// <summary>
@@ -71,8 +73,8 @@ public class Player : MonoBehaviour
         Collider2D platform = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Platform"));
         Collider2D obstacle = Physics2D.OverlapBox(destination, Vector2.zero, 0f, LayerMask.GetMask("Obstacle"));
 
-        FindObjectOfType<ProceduralGeneration>().GenerateLoot(transform.position, "Star");
-        FindObjectOfType<ProceduralGeneration>().GenerateLoot(transform.position, "PowerUp");
+        ProceduralGeneration.Instance.GenerateLoot(transform.position, "Star");
+        ProceduralGeneration.Instance.GenerateLoot(transform.position, "PowerUp");
 
         if (barrier != null)
         {
@@ -90,57 +92,13 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// Setter for private variable.
-    /// </summary>
-    /// <param name="reverseMove"> Reverses Controls </param>
-    public void SetReverseMove(bool reverseMove)
-    {
-        this.reverseMove = reverseMove;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Reverse Move </returns>
-    public bool GetReverseMove()
-    {
-        return reverseMove;
-    }
-
-    /// <summary>
-    /// Setter for private variable.
-    /// </summary>
-    /// <param name="obstacleImmunity"> Immune To Car Damage </param>
-    public void SetObstacleImmunity(bool obstacleImmunity)
-    {
-        this.obstacleImmunity = obstacleImmunity;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Obstacle Immunity </returns>
-    public bool GetObstacleImmunity()
-    {
-        return obstacleImmunity;
-    }
-
-    /// <summary>
-    /// Setter for private variable.
-    /// </summary>
-    /// <param name="blockDistance"> Amount Of Spaces Moved. </param>
-    public void SetBlockDistance(int blockDistance)
-    {
-        this.blockDistance = blockDistance;
-    }
-
-    /// <summary>
     /// Disables player and shows the game over ui.
     /// </summary>
     public void Death()
     {
         enabled = false;
-        FindObjectOfType<GameManager>().GameOver();
+        GameManager.Instance.DisableNotificationText();
+        GameManager.Instance.GameOver();
     }
 
     /// <summary>
@@ -151,9 +109,9 @@ public class Player : MonoBehaviour
         transform.position = initialPos;
         gameObject.SetActive(true);
         enabled = true;
-        SetReverseMove(false);
-        FindObjectOfType<ProceduralGeneration>().ResetMap();
-        FindObjectOfType<GameManager>().CleansePowerUps();
+        reverseMove = false;
+        ProceduralGeneration.Instance.ResetMap();
+        GameManager.Instance.CleansePowerUps();
     }
 }
   

@@ -3,38 +3,25 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private Vector2 direction = Vector2.right;
-    [SerializeField] private float speed = 1f;
-    [SerializeField] private double size = 1f;
-
-    private Vector3 leftEdge;
-    private Vector3 rightEdge;
-    private Player player;
-    private GameManager gm;
-
-    private void Awake()
-    {
-        player = FindObjectOfType<Player>();
-        gm = FindObjectOfType<GameManager>();
-        leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
-        rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
-    }
+    public Vector2 direction { get; set; }
+    public float speed { get; set; }
+    public double size { get; set; }
 
     /// <summary>
     /// On Update, move object based on direction, if they exceed an outer edge, loop around.
     /// </summary>
     private void Update()
     {
-        if (direction.x > 0 && (transform.position.x - size) > rightEdge.x)
+        if (direction.x > 0 && (transform.position.x - size) > GameManager.Instance.rightEdge.x)
         {
             Vector3 position = transform.position;
-            position.x = leftEdge.x - (int)size;
+            position.x = GameManager.Instance.leftEdge.x - (int)size;
             transform.position = position;
         }
-        else if (direction.x < 0 && (transform.position.x + size) < leftEdge.x)
+        else if (direction.x < 0 && (transform.position.x + size) < GameManager.Instance.leftEdge.x)
         {
             Vector3 position = transform.position;
-            position.x = rightEdge.x + (int)size;
+            position.x = GameManager.Instance.rightEdge.x + (int)size;
             transform.position = position;
         }
         else
@@ -50,8 +37,8 @@ public class Obstacle : MonoBehaviour
     IEnumerator ImmunityOver()
     {
         yield return new WaitForSeconds(2);
-        gm.ChangeImageOpacity(gm.GetImmunityImage(), 0.5f);
-        player.SetObstacleImmunity(false);
+        GameManager.Instance.ChangeImageOpacity(GameManager.Instance.immunityImage, 0.5f);
+        Player.Instance.obstacleImmunity = false;
     }
 
     /// <summary>
@@ -59,13 +46,12 @@ public class Obstacle : MonoBehaviour
     /// </summary>
     private void WaterDeath()
     {
-        if (this.gameObject.layer == LayerMask.NameToLayer("Water") && player.transform.parent == null)
+        if (this.gameObject.layer == LayerMask.NameToLayer("Water") && Player.Instance.transform.parent == null)
         {
-            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("WaterDeath");
-            player.Death();
+            SoundManager.Instance.PlaySound("WaterDeath");
+            Player.Instance.Death();
         }
     }
-
 
     /// <summary>
     /// If collided with player, player is not attached to a platform,
@@ -74,12 +60,12 @@ public class Obstacle : MonoBehaviour
     /// <param name="collision"> Object Collided With </param>
     private void CarDeath(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && player.transform.parent == null)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && Player.Instance.transform.parent == null)
         {
-            if (player.GetObstacleImmunity() == false && player.enabled == true)
+            if (Player.Instance.obstacleImmunity == false && Player.Instance.enabled == true)
             {
-                FindObjectOfType<GameManager>().GetSoundManager().PlaySound("CarDeath");
-                player.Death();
+                SoundManager.Instance.PlaySound("CarDeath");
+                Player.Instance.Death();
             }
             else
             {
@@ -107,32 +93,4 @@ public class Obstacle : MonoBehaviour
     {
         WaterDeath();
     }
-
-    /// <summary>
-    /// Setter for private variable.
-    /// </summary>
-    /// <param name="direction"> Object Direction </param>
-    public void SetDirection(Vector2 direction)
-    {
-        this.direction = direction;
-    }
-
-    /// <summary>
-    /// Setter for private variable.
-    /// </summary>
-    /// <param name="speed"> Object Speed </param>
-    public void SetSpeed(float speed)
-    {
-        this.speed = speed;
-    }
-
-    /// <summary>
-    /// Setter for private variable.
-    /// </summary>
-    /// <param name="size"> Object Size </param>
-    public void SetSize(double size)
-    {
-        this.size = size;
-    }
-
 }

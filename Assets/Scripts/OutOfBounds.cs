@@ -2,13 +2,6 @@ using UnityEngine;
 
 public class OutOfBounds : MonoBehaviour
 {
-    private Player player;
-
-    private void Awake()
-    {
-        player = FindObjectOfType<Player>();
-    }
-
     /// <summary>
     /// Check if the object is out of bounds every 1second.
     /// </summary>
@@ -23,7 +16,7 @@ public class OutOfBounds : MonoBehaviour
     /// </summary>
     public void CheckBounds()
     {
-        int playerAway = (int)player.transform.position.y - 10;
+        int playerAway = (int)Player.Instance.transform.position.y - 10;
         if (playerAway >= gameObject.transform.position.y)
         {
             Destroy(gameObject);

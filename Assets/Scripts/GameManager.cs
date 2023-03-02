@@ -4,44 +4,53 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private Player player;
-    private SoundManager sm;
+    public static GameManager Instance { get; private set; }
+    public int bonusScore { get; set; }
+    public int score { get; private set; }
+    public Vector3 leftEdge { get; private set; }
+    public Vector3 rightEdge { get; private set; }
 
-    private int score;
-    private int bonusScore;
     private int currentHighestScore = 0; // In that run.
     private int highestScoreAchieved = 0; // Overall highscore
-
     private Vector3 startPos;
-    private Vector3 leftEdge;
-    private Vector3 rightEdge;
+
+    public Image doubleJumpImage { get; set; }
+    public Image timeSlowImage { get; set; }
+    public Image immunityImage { get; set; }
+
+    public Text doubleJumpText { get; set; }
+    public Text timeSlowText { get; set; }
 
     [Header("Game Objects")]
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject menuUI;
     [SerializeField] private GameObject gamePlayUI;
     [Header("Images")]
-    [SerializeField] private Image doubleJumpImage;
-    [SerializeField] private Image timeSlowImage;
-    [SerializeField] private Image immunityImage;
+    [SerializeField] private Image _doubleJumpImage;
+    [SerializeField] private Image _timeSlowImage;
+    [SerializeField] private Image _immunityImage;
     [Header("Texts")]
     [SerializeField] private Text notificationText;
     [SerializeField] private Text endScoreText;
     [SerializeField] private Text highestScoreAchievedText;
-    [SerializeField] private Text doubleJumpText;
-    [SerializeField] private Text timeSlowText;
     [SerializeField] private Text highscoreText;
+    [SerializeField] private Text _doubleJumpText;
+    [SerializeField] private Text _timeSlowText;
 
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
-        sm = FindObjectOfType<SoundManager>();
-        startPos = player.transform.position;
-        player.enabled = false;
+        Instance = this;
+        InitializeUI();
         Time.timeScale = 0f;
         leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
         rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
         highestScoreAchieved = PlayerPrefs.GetInt("Score");
+    }
+
+    private void Start()
+    {
+        startPos = Player.Instance.transform.position;
+        Player.Instance.enabled = false;
     }
 
     /// <summary>
@@ -52,8 +61,8 @@ public class GameManager : MonoBehaviour
         ResetScore();
         ResetUI();
         Time.timeScale = 1f;
-        player.Respawn();
-        player.enabled = true;
+        Player.Instance.Respawn();
+        Player.Instance.enabled = true;
     }
 
     /// <summary>
@@ -92,16 +101,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverUI.SetActive(false);
         gamePlayUI.SetActive(true);
-        notificationText.enabled = true;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Score </returns>
-    public int GetScore()
-    {
-        return score;
+        notificationText.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void CalculateScore()
     {
-        Vector3 currentPos = player.transform.position;
+        Vector3 currentPos = Player.Instance.transform.position;
         int currentScore = (int)currentPos.y+bonusScore;
         if (currentScore > currentHighestScore)
         {
@@ -125,33 +125,15 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Setter for private variable.
-    /// </summary>
-    /// <param name="bonusScore"> Bonus Score From Stars </param>
-    public void SetBonusScore(int bonusScore)
-    {
-        this.bonusScore = bonusScore;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Bonus Score </returns>
-    public int GetBonusScore()
-    {
-        return bonusScore;
-    }
-
-    /// <summary>
     /// Disables the player, activates the game over UI, 
     /// and starts listening for the replay key.
     /// </summary>
     public void GameOver()
     {
-        player.gameObject.SetActive(false);
+        Player.Instance.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
         gamePlayUI.SetActive(false);
-        notificationText.enabled = false;
+        notificationText.gameObject.SetActive(false);
         endScoreText.text = score.ToString();
         highestScoreAchievedText.text = highestScoreAchieved.ToString();
 
@@ -201,7 +183,7 @@ public class GameManager : MonoBehaviour
     public void UnPauseGame()
     {
         Time.timeScale = 1f;
-        player.enabled = true;
+        Player.Instance.enabled = true;
     }
 
     /// <summary>
@@ -210,67 +192,13 @@ public class GameManager : MonoBehaviour
     public void CleansePowerUps()
     {
         Time.timeScale = 1f;
-        player.SetBlockDistance(1);
-        player.SetObstacleImmunity(false);
+        Player.Instance.blockDistance = 1;
+        Player.Instance.obstacleImmunity = false;
         ChangeImageOpacity(doubleJumpImage, 0.5f);
         ChangeImageOpacity(timeSlowImage, 0.5f);
         ChangeImageOpacity(immunityImage, 0.5f);
         doubleJumpText.enabled = false;
         timeSlowText.enabled = false;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Sound Manager </returns>
-    public SoundManager GetSoundManager()
-    {
-        return sm;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Double Jump Image </returns>
-    public Image GetDoubleJumpImage()
-    {
-        return doubleJumpImage;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Time Slow Image </returns>
-    public Image GetTimeSlowImage()
-    {
-        return timeSlowImage;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Immunity Image </returns>
-    public Image GetImmunityImage()
-    {
-        return immunityImage;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Double Jump Text </returns>
-    public Text GetDoubleJumpText()
-    {
-        return doubleJumpText;
-    }
-
-    /// <summary>
-    /// Getter for private variable.
-    /// </summary>
-    /// <returns> Time Slow Text </returns>
-    public Text GetTimeSlowText()
-    {
-        return timeSlowText;
     }
 
     /// <summary>
@@ -281,7 +209,7 @@ public class GameManager : MonoBehaviour
     {
         notificationText.gameObject.SetActive(true);
         notificationText.text = text;
-        Vector2 notificationPos = new Vector2(player.transform.position.x, player.transform.position.y+1);
+        Vector2 notificationPos = new Vector2(Player.Instance.transform.position.x, Player.Instance.transform.position.y+1);
         notificationText.transform.position = notificationPos;
     }
 
@@ -290,6 +218,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void DisableNotificationText()
     {
+        notificationText.text = "";
         notificationText.gameObject.SetActive(false);
     }
 
@@ -304,26 +233,38 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Initializes the UI elements.
+    /// </summary>
+    private void InitializeUI()
+    {
+        doubleJumpImage = _doubleJumpImage;
+        timeSlowImage = _timeSlowImage;
+        immunityImage = _immunityImage;
+        doubleJumpText = _doubleJumpText;
+        timeSlowText = _timeSlowText;
+    }
+
+    /// <summary>
     /// Checks if player is on the map and disables 
     /// player if not, re-enables them if they are.
     /// </summary>
     private void CheckPlayerOnMap()
     {
-        if (player.transform.position.x < leftEdge.x)
+        if (Player.Instance.transform.position.x < leftEdge.x)
         {
-            player.enabled = false;
+            Player.Instance.enabled = false;
         }
         else
         {
-            player.enabled = true;
+            Player.Instance.enabled = true;
         }
-        if (player.transform.position.x > rightEdge.x)
+        if (Player.Instance.transform.position.x > rightEdge.x)
         {
-            player.enabled = false;
+            Player.Instance.enabled = false;
         }
         else
         {
-            player.enabled = true;
+            Player.Instance.enabled = true;
         }
     }
 

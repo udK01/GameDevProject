@@ -3,14 +3,9 @@ using UnityEngine;
 
 public class LavaRoad : MonoBehaviour
 {
-    private Player player;
     private const int BASE_LAVA_TIME = 4;
     private int LavaTime = BASE_LAVA_TIME;
 
-    private void Awake()
-    {
-        player = FindObjectOfType<Player>();
-    }
 
     /// <summary>
     /// On collision, invokes the "LavaDamage" method every 10seconds, which
@@ -30,7 +25,7 @@ public class LavaRoad : MonoBehaviour
     {
         CancelInvoke();
         LavaTime = BASE_LAVA_TIME;
-        FindObjectOfType<GameManager>().DisableNotificationText();
+        GameManager.Instance.DisableNotificationText();
     }
 
     /// <summary>
@@ -41,14 +36,14 @@ public class LavaRoad : MonoBehaviour
     {
         if (LavaTime == 0)
         {
-            player.Death();
+            Player.Instance.Death();
             CancelInvoke();
         }
         else
         {
             LavaTime--;
-            FindObjectOfType<GameManager>().SetNotificationText(LavaTime.ToString());
-            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("LavaDamage");
+            GameManager.Instance.SetNotificationText(LavaTime.ToString());
+            SoundManager.Instance.PlaySound("LavaDamage");
         }
     }
 }

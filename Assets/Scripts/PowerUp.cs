@@ -7,8 +7,6 @@ public enum PowerUps { DOUBLEJUMP, TIMESLOW, IMMUNITY }
 public class PowerUp : MonoBehaviour
 {
     private PowerUps powerUp;
-    private Player player;
-    private GameManager gm;
     [SerializeField] private int jumpBoostDuration;
     [SerializeField] private int timeSlowDuration;
 
@@ -20,13 +18,11 @@ public class PowerUp : MonoBehaviour
 
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
-        gm = FindObjectOfType<GameManager>();
-        doubleJumpImage = gm.GetDoubleJumpImage();
-        timeSlowImage = gm.GetTimeSlowImage();
-        immunityImage = gm.GetImmunityImage();
-        doubleJumpText = gm.GetDoubleJumpText();
-        timeSlowText = gm.GetTimeSlowText();
+        doubleJumpImage = GameManager.Instance.doubleJumpImage;
+        timeSlowImage = GameManager.Instance.timeSlowImage;
+        immunityImage = GameManager.Instance.immunityImage;
+        doubleJumpText = GameManager.Instance.doubleJumpText;
+        timeSlowText = GameManager.Instance.timeSlowText;
     }
 
     /// <summary>
@@ -56,8 +52,8 @@ public class PowerUp : MonoBehaviour
     private void DoubleJump()
     {
         doubleJumpText.text = "";
-        gm.ChangeImageOpacity(doubleJumpImage, 1f);
-        gm.SetNotificationText("Double Jump!");
+        GameManager.Instance.ChangeImageOpacity(doubleJumpImage, 1f);
+        GameManager.Instance.SetNotificationText("Double Jump!");
         StopAllCoroutines();
         StartCoroutine(nameof(DeactivateDoubleJump), 0f);
     }
@@ -70,12 +66,12 @@ public class PowerUp : MonoBehaviour
     /// <returns> Nothing </returns>
     IEnumerator DeactivateDoubleJump()
     {
-        player.SetBlockDistance(2);
+        Player.Instance.blockDistance = 2;
         StartCoroutine(nameof(CountDownDoubleJump), 0f);
         yield return new WaitForSeconds(jumpBoostDuration);
-        gm.ChangeImageOpacity(doubleJumpImage, 0.5f);
+        GameManager.Instance.ChangeImageOpacity(doubleJumpImage, 0.5f);
         doubleJumpText.enabled = false;
-        player.SetBlockDistance(1);
+        Player.Instance.blockDistance = 1;
         Destroy(this.gameObject);
     }
 
@@ -100,8 +96,8 @@ public class PowerUp : MonoBehaviour
     private void TimeSlow()
     {
         timeSlowText.text = "";
-        gm.ChangeImageOpacity(timeSlowImage, 1f);
-        gm.SetNotificationText("Time Slow!");
+        GameManager.Instance.ChangeImageOpacity(timeSlowImage, 1f);
+        GameManager.Instance.SetNotificationText("Time Slow!");
         StopAllCoroutines();
         StartCoroutine(nameof(DeactivateTimeSlow), 0f);
     }
@@ -117,7 +113,7 @@ public class PowerUp : MonoBehaviour
         Time.timeScale = 0.5f;
         StartCoroutine(nameof(CountDownTimeSlow), 0f);
         yield return new WaitForSeconds(timeSlowDuration);
-        gm.ChangeImageOpacity(timeSlowImage, 0.5f);
+        GameManager.Instance.ChangeImageOpacity(timeSlowImage, 0.5f);
         timeSlowText.enabled = false;
         Time.timeScale = 1f;
         Destroy(this.gameObject);
@@ -143,9 +139,9 @@ public class PowerUp : MonoBehaviour
     /// </summary>
     private void ObstacleImmunity()
     {
-        gm.ChangeImageOpacity(immunityImage, 1f);
-        gm.SetNotificationText("Immunity!");
-        player.SetObstacleImmunity(true);
+        GameManager.Instance.ChangeImageOpacity(immunityImage, 1f);
+        GameManager.Instance.SetNotificationText("Immunity!");
+        Player.Instance.obstacleImmunity = true;
         Destroy(this.gameObject);
     }
 
@@ -158,7 +154,7 @@ public class PowerUp : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             GivePowerUp();
-            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("PowerUp");
+            SoundManager.Instance.PlaySound("PowerUp");
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }

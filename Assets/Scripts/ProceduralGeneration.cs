@@ -4,9 +4,9 @@ public enum Options { ROAD, WATER, REVERSEROAD, LAVAROAD }
 
 public class ProceduralGeneration : MonoBehaviour
 {
+    public static ProceduralGeneration Instance { get; private set; }
     private Options option;
-    private Player player;
-    private const int IGNORE = 1;
+    private const int IGNORE = 3;
     private const int LANE_WIDTH = 14;
     private const int OBSTACLE_SPAWN_DISTANCE = 10;
 
@@ -62,7 +62,7 @@ public class ProceduralGeneration : MonoBehaviour
 
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
+        Instance = this;
     }
 
     private void Update()
@@ -76,10 +76,10 @@ public class ProceduralGeneration : MonoBehaviour
     /// </summary>
     private void DetectAndSpawnObstacle()
     {
-        Vector2 boxPosition = new Vector3(0, player.transform.position.y + OBSTACLE_SPAWN_DISTANCE);
+        Vector2 boxPosition = new Vector3(0, Player.Instance.transform.position.y + OBSTACLE_SPAWN_DISTANCE);
         Vector2 obstacleSize = new Vector2(1, 1);
         Collider2D obstacleExists = Physics2D.OverlapBox(boxPosition, obstacleSize, LayerMask.GetMask("Obstacle"));
-        if (!obstacleExists && player.transform.position.y != 0)
+        if (!obstacleExists && Player.Instance.transform.position.y != 0)
         {
             Generate(i, (int)boxPosition.y);
         }
@@ -88,6 +88,9 @@ public class ProceduralGeneration : MonoBehaviour
     /// <summary>
     /// Selects a new obstacle from Options (Road, ReverseRoad, Water)
     /// and generates it between the starting and ending coordinates.
+    /// 
+    /// If the selected obstacle is currently being ignored, decrement by one row
+    /// and run until an available option is selected.
     /// </summary>
     /// <param name="s"> Generation Starting Point </param>
     /// <param name="f"> Generation End Point </param>
@@ -99,48 +102,16 @@ public class ProceduralGeneration : MonoBehaviour
             switch (option)
             {
                 case Options.ROAD:
-                    if (ignoreRoad == 0)
-                    {
-                        GenerateRoad(i--, 1);
-                    }
-                    else
-                    {
-                        i--;
-                        ignoreRoad--;
-                    }
+                    if (ignoreRoad-- > 0) { i--; } else { GenerateRoad(i--, 1); }
                     break;
                 case Options.REVERSEROAD:
-                    if (ignoreReverseRoad == 0)
-                    {
-                        GenerateRoad(i--, 2);
-                    }
-                    else
-                    {
-                        i--;
-                        ignoreReverseRoad--;
-                    }
+                    if (ignoreReverseRoad-- > 0) { i--; } else { GenerateRoad(i--, 2); }
                     break;
                 case Options.LAVAROAD:
-                    if (ignoreLavaRoad == 0)
-                    {
-                        GenerateRoad(i--, 3);
-                    }
-                    else
-                    {
-                        i--;
-                        ignoreLavaRoad--;
-                    }
+                    if (ignoreLavaRoad-- > 0) { i--; } else { GenerateRoad(i--, 3); }
                     break;
                 case Options.WATER:
-                    if (ignoreWater == 0)
-                    {
-                        GenerateWater(i--);
-                    }
-                    else
-                    {
-                        i--;
-                        ignoreWater--;
-                    }
+                    if (ignoreWater-- > 0) { i--; } else { GenerateWater(i--); }
                     break;
             }
         }
@@ -359,9 +330,9 @@ public class ProceduralGeneration : MonoBehaviour
         Obstacle obstacle = obj.gameObject.GetComponent<Obstacle>();
         SpriteRenderer spriteRenderer = obj.gameObject.GetComponent<SpriteRenderer>();
 
-        obstacle.SetDirection(direction);
-        obstacle.SetSpeed(speed);
-        obstacle.SetSize(size);
+        obstacle.direction = direction;
+        obstacle.speed = speed;
+        obstacle.size = size;
 
         spriteRenderer.sprite = sprite;
         if (direction == Vector2.left)
@@ -401,7 +372,7 @@ public class ProceduralGeneration : MonoBehaviour
         }
         GenerateBarrier(-2);
         GenerateSidewalk(0);
-        Generate((int)player.transform.position.y+1, lanes);
+        Generate((int)Player.Instance.transform.position.y+1, lanes);
     }
 
     /// <summary>

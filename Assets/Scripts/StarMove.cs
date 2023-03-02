@@ -4,12 +4,10 @@ using UnityEngine;
 public class StarMove : MonoBehaviour
 {
 
-    private GameManager gm;
     private int AmountToGive = 10;
 
     private void Awake()
     {
-        gm = FindObjectOfType<GameManager>();
         StopAllCoroutines();
         StartCoroutine(nameof(StartMove), 0f);
     }
@@ -39,8 +37,8 @@ public class StarMove : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            FindObjectOfType<GameManager>().GetSoundManager().PlaySound("StarPickUp");
-            gm.SetBonusScore(gm.GetBonusScore()+AmountToGive);
+            SoundManager.Instance.PlaySound("StarPickUp");
+            GameManager.Instance.bonusScore = (GameManager.Instance.bonusScore + AmountToGive);
             Destroy(this.gameObject);
         }
     }

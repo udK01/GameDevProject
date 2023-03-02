@@ -1169,12 +1169,12 @@ MonoBehaviour:
   minCarSpeed: 1
   maxCarSpeed: 4
   minTurtles: 3
-  maxTurtles: 9
+  maxTurtles: 6
   turtleMinSpeed: 1
   turtleMaxSpeed: 4
   minLogs: 2
-  maxLogs: 5
-  logMinSpeed: 2
+  maxLogs: 4
+  logMinSpeed: 3
   logMaxSpeed: 5
   lootRadius: 10
   extraLootSpawnDistance: 7
@@ -3952,15 +3952,15 @@ MonoBehaviour:
   gameOverUI: {fileID: 1879379596}
   menuUI: {fileID: 1819625570}
   gamePlayUI: {fileID: 1734417247}
-  doubleJumpImage: {fileID: 431173575}
-  timeSlowImage: {fileID: 1585506581}
-  immunityImage: {fileID: 348777570}
+  _doubleJumpImage: {fileID: 431173575}
+  _timeSlowImage: {fileID: 1585506581}
+  _immunityImage: {fileID: 348777570}
   notificationText: {fileID: 1762902415}
   endScoreText: {fileID: 564555003}
   highestScoreAchievedText: {fileID: 1978879948}
-  doubleJumpText: {fileID: 1016093251}
-  timeSlowText: {fileID: 288013194}
   highscoreText: {fileID: 1374905974}
+  _doubleJumpText: {fileID: 1016093251}
+  _timeSlowText: {fileID: 288013194}
 --- !u!4 &1018980131
 Transform:
   m_ObjectHideFlags: 0
@@ -4613,32 +4613,32 @@ MonoBehaviour:
   - name: Theme
     clip: {fileID: 8300000, guid: f547192c07b915c45b2e45ecbc555704, type: 3}
     loop: 1
-    volume: 0.3
-    pitch: 1
-  - name: WaterDeath
-    clip: {fileID: 8300000, guid: 5e8132b563f8b9047b724d3c78887c60, type: 3}
-    loop: 0
     volume: 0.2
     pitch: 1
   - name: CarDeath
     clip: {fileID: 8300000, guid: 7955e95d2e694c747bbe1705838c55d6, type: 3}
     loop: 0
-    volume: 0.2
+    volume: 0.3
     pitch: 1
-  - name: PowerUp
-    clip: {fileID: 8300000, guid: 897739e1f9f2a244789dea84cb5f28e5, type: 3}
+  - name: WaterDeath
+    clip: {fileID: 8300000, guid: 5e8132b563f8b9047b724d3c78887c60, type: 3}
     loop: 0
-    volume: 0.1
-    pitch: 1
-  - name: StarPickUp
-    clip: {fileID: 8300000, guid: ec9a04a56115baf4ba3aa1010726982e, type: 3}
-    loop: 0
-    volume: 0.1
+    volume: 0.3
     pitch: 1
   - name: LavaDamage
     clip: {fileID: 8300000, guid: 56c596c678115a24aabffc104e42b6dd, type: 3}
     loop: 0
-    volume: 0.1
+    volume: 0.2
+    pitch: 1
+  - name: StarPickUp
+    clip: {fileID: 8300000, guid: ec9a04a56115baf4ba3aa1010726982e, type: 3}
+    loop: 0
+    volume: 0.05
+    pitch: 1
+  - name: PowerUp
+    clip: {fileID: 8300000, guid: 897739e1f9f2a244789dea84cb5f28e5, type: 3}
+    loop: 0
+    volume: 0.05
     pitch: 1
 --- !u!4 &1215445362
 Transform:
@@ -5133,8 +5133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7671086b2f76394993ba2a2085522bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockDistance: 1
-  obstacleImmunity: 0
 --- !u!4 &1318929242 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 131002749094084116, guid: ce9d9dd50c3abc54b8fe3a6b9ac57405, type: 3}
@@ -5178,9 +5176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb520e30595b9245a23680968b8fc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0}
-  speed: 0
-  size: 0
 --- !u!1 &1336604987
 GameObject:
   m_ObjectHideFlags: 0
