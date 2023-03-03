@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void DisableNotificationText()
     {
-        notificationText.text = "";
+        notificationText.text = ""; 
         notificationText.gameObject.SetActive(false);
     }
 
