@@ -150,6 +150,7 @@ public class PowerUp : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            GameManager.Instance.powerUpCount++;
             StartCoroutine(nameof(PowerUpNotify), 0f);
         }
     }

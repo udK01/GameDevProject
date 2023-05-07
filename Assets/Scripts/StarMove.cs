@@ -39,6 +39,7 @@ public class StarMove : MonoBehaviour
         {
             SoundManager.Instance.PlaySound("StarPickUp");
             GameManager.Instance.bonusScore = (GameManager.Instance.bonusScore + AmountToGive);
+            GameManager.Instance.starCount++;
             StartCoroutine(nameof(DisplayPoints), 0f);
         }
     }

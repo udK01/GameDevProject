@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public int bonusScore { get; set; }
     public int score { get; private set; }
+    public float starCount { get; set; } = 0;
+    public float powerUpCount { get; set; } = 0;
     public Vector3 leftEdge { get; private set; }
     public Vector3 rightEdge { get; private set; }
 
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject menuUI;
     [SerializeField] private GameObject gamePlayUI;
+    [SerializeField] private GameObject achievementUI;
     [Header("Images")]
     [SerializeField] private Image _doubleJumpImage;
     [SerializeField] private Image _timeSlowImage;
@@ -99,9 +102,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void ResetUI()
     {
+        achievementUI.GetComponent<CanvasGroup>().alpha = 0;
+        notificationText.gameObject.SetActive(true);
         gameOverUI.SetActive(false);
         gamePlayUI.SetActive(true);
-        notificationText.gameObject.SetActive(true);
     }
 
     /// <summary>
