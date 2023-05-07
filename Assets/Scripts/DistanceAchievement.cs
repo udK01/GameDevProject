@@ -11,7 +11,7 @@ public class DistanceAchievement : AchievementType
 
     public override bool CheckIfAchievementEarned()
     {
-        if (GameManager.Instance.score >= distanceThreshold)
+        if (GameManager.Instance.score >= distanceThreshold && !isCompleted)
         {
             isCompleted = true;
             PlayerPrefs.SetInt(achievementName, 1);
