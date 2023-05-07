@@ -54,7 +54,6 @@ public class PowerUp : MonoBehaviour
         doubleJumpText.text = "";
         GameManager.Instance.ChangeImageOpacity(doubleJumpImage, 1f);
         GameManager.Instance.SetNotificationText("Double Jump!");
-        StopAllCoroutines();
         StartCoroutine(nameof(DeactivateDoubleJump), 0f);
     }
 
@@ -98,7 +97,6 @@ public class PowerUp : MonoBehaviour
         timeSlowText.text = "";
         GameManager.Instance.ChangeImageOpacity(timeSlowImage, 1f);
         GameManager.Instance.SetNotificationText("Time Slow!");
-        StopAllCoroutines();
         StartCoroutine(nameof(DeactivateTimeSlow), 0f);
     }
 
@@ -142,7 +140,6 @@ public class PowerUp : MonoBehaviour
         GameManager.Instance.ChangeImageOpacity(immunityImage, 1f);
         GameManager.Instance.SetNotificationText("Immunity!");
         Player.Instance.obstacleImmunity = true;
-        Destroy(this.gameObject);
     }
 
     /// <summary>
@@ -153,10 +150,21 @@ public class PowerUp : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            GivePowerUp();
-            SoundManager.Instance.PlaySound("PowerUp");
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            StartCoroutine(nameof(PowerUpNotify), 0f);
         }
     }
+
+    IEnumerator PowerUpNotify()
+    {
+        GivePowerUp();
+        SoundManager.Instance.PlaySound("PowerUp");
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(2);
+        GameManager.Instance.DisableNotificationText();
+        // In case it wasn't destroyed.
+        yield return new WaitForSeconds(5);
+        Destroy(this.gameObject);
+    }
+
 }

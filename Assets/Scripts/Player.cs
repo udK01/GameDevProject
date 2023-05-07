@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(forward))
         {
             Move(Vector3.up * blockDistance);
+            ProceduralGeneration.Instance.GenerateBarrier((int)transform.position.y - 9);
         }
         if (Input.GetKeyDown(left))
         {
