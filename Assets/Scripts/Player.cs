@@ -9,14 +9,22 @@ public class Player : MonoBehaviour
 
     private Vector3 initialPos;
     private KeyCode forward = KeyCode.W;
+    private KeyCode backward = KeyCode.S;
     private KeyCode left = KeyCode.A;
     private KeyCode right = KeyCode.D;
-    private KeyCode backward = KeyCode.S;
 
     private void Awake()
     {
         initialPos = transform.position;
         Instance = this;
+    }
+
+    private void Start()
+    {
+        forward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("forward"));
+        backward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("backward"));
+        left = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("left"));
+        right = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("right"));
     }
 
     /// <summary>
@@ -113,6 +121,29 @@ public class Player : MonoBehaviour
         reverseMove = false;
         ProceduralGeneration.Instance.ResetMap();
         GameManager.Instance.CleansePowerUps();
+    }
+    // 1 to 4 forward, back, left, right
+    public void SetKey(int direction, KeyCode key)
+    {
+        switch(direction)
+        {
+            case 1:
+                forward = key;
+                PlayerPrefs.SetString("forward", key.ToString());
+                break;
+            case 2:
+                backward = key;
+                PlayerPrefs.SetString("backward", key.ToString());
+                break;
+            case 3:
+                left = key;
+                PlayerPrefs.SetString("left", key.ToString());
+                break;
+            case 4:
+                right = key;
+                PlayerPrefs.SetString("right", key.ToString());
+                break;
+        }
     }
 }
   

@@ -18,10 +18,10 @@ public class AchievementManager : MonoBehaviour
     private Queue<AchievementType> notificationQueue = new Queue<AchievementType>();
 
     // This is for testing purposes.
-    private void Awake()
-    {
-        PlayerPrefs.DeleteAll();
-    }
+    //private void Awake()
+    //{
+    //    PlayerPrefs.DeleteAll();
+    //}
 
     private void Start()
     {
