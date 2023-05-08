@@ -429,20 +429,21 @@ public class ProceduralGeneration : MonoBehaviour
 
             i = levelState.generationInfo.laneCount;
 
-            foreach (RoadPieceState roadPiece in levelState.roadPieces)
-            {
-                Debug.Log(roadPiece.type);
-            }
             foreach (RoadPieceState roadPieceState in levelState.roadPieces)
             {
                 GameObject roadPiece = SpawnObj(GetTypeByTag(roadPieceState.type), roadPieceState.position, roadPieceState.rotation);
-                //foreach (BarrierState barrierState in roadPieceState.barriers)
-                //{
-                //    SpawnObj(barrier, barrierState.position, barrierState.rotation, roadPiece);
-                //}
                 foreach (MovingChildState movingChildState in roadPieceState.movingChildren)
                 {
                     GameObject movingChild = Instantiate(GetTypeByTag(movingChildState.type), movingChildState.position, movingChildState.rotation, roadPiece.transform);
+                    if (movingChildState.type == "Car")
+                    {
+                        Sprite sprite = GetSpriteByType(roadPieceState.type);
+                        movingChild.GetComponent<SpriteRenderer>().sprite = sprite;
+                        if (movingChildState.direction == new Vector3(-1,0,0))
+                        {
+                            movingChild.GetComponent<SpriteRenderer>().flipX = true;
+                        }
+                    }
                     movingChild.GetComponent<Obstacle>().direction = movingChildState.direction;
                     movingChild.GetComponent<Obstacle>().speed = movingChildState.speed;
                     movingChild.GetComponent<Obstacle>().size = movingChildState.size;
@@ -482,4 +483,18 @@ public class ProceduralGeneration : MonoBehaviour
         }
     }
 
+    private Sprite GetSpriteByType(string type)
+    {
+        switch (type)
+        {
+            case "LavaRoad":
+                return tractorSprites[Random.Range(0, tractorSprites.Length)];
+            case "ReverseRoad":
+                return tractorSprites[Random.Range(0, tractorSprites.Length)];
+            case "Road":
+                return carSprites[Random.Range(0, carSprites.Length)];
+            default:
+                return null;
+        }
+    }
 }

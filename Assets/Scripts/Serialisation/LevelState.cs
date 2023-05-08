@@ -31,17 +31,8 @@ public class RoadPieceState
     public string type;
     public Vector3 position;
     public Quaternion rotation;
-    //public List<BarrierState> barriers = new List<BarrierState>();
     public List<MovingChildState> movingChildren = new List<MovingChildState>();
 }
-
-
-//[System.Serializable]
-//public class BarrierState
-//{
-//    public Vector3 position;
-//    public Quaternion rotation;
-//}
 
 [System.Serializable]
 public class MovingChildState
