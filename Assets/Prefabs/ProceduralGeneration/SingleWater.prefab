@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 440526340222877181}
   - component: {fileID: 440526340222877180}
-  m_Layer: 4
+  m_Layer: 8
   m_Name: Barrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 440526340722920266}
   - component: {fileID: 440526340722920309}
-  m_Layer: 4
+  m_Layer: 8
   m_Name: Barrier (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

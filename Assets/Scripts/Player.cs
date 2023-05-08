@@ -39,12 +39,6 @@ public class Player : MonoBehaviour
         {
             MovePlayer(backward, right, forward, left);
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            //LevelStateManager.Instance.ReadLevelState();
-            LevelStateManager.Instance.SaveLevelState(LevelStateManager.Instance.GetLevelState(), "save1");
-        }
     }
 
     /// <summary>

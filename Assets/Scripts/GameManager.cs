@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Objects")]
     [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject menuBackground;
     [SerializeField] private GameObject menuUI;
     [SerializeField] private GameObject gamePlayUI;
     [SerializeField] private GameObject achievementUI;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Player.Instance.Respawn();
         Player.Instance.enabled = true;
+        StopAllCoroutines();
     }
 
     public void LoadGame()
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Player.Instance.gameObject.SetActive(true);
         Player.Instance.enabled = true;
+        CleansePowerUps();
     }
 
     /// <summary>
@@ -167,7 +170,14 @@ public class GameManager : MonoBehaviour
             {
                 playAgain = true;
             }
-
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                menuUI.SetActive(true);
+                menuBackground.SetActive(true);
+                menuUI.transform.GetChild(0).gameObject.SetActive(true);
+                menuUI.transform.GetChild(1).gameObject.SetActive(false);
+                gameOverUI.SetActive(false);
+            }
             yield return null;
         }
 
@@ -179,9 +189,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void PauseGame()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape) && Player.Instance.enabled == true)
         {
             menuUI.SetActive(true);
+            menuBackground.SetActive(true);
+            gamePlayUI.SetActive(false);
             menuUI.transform.GetChild(0).gameObject.SetActive(false);
             menuUI.transform.GetChild(1).gameObject.SetActive(true);
             Time.timeScale = 0f;
