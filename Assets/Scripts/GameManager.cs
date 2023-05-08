@@ -68,6 +68,13 @@ public class GameManager : MonoBehaviour
         Player.Instance.enabled = true;
     }
 
+    public void LoadGame()
+    {
+        Time.timeScale = 1f;
+        Player.Instance.gameObject.SetActive(true);
+        Player.Instance.enabled = true;
+    }
+
     /// <summary>
     /// Exit the game.
     /// </summary>

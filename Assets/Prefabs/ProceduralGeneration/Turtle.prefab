@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 843566994729088496}
   m_Layer: 6
   m_Name: Turtle
-  m_TagString: Untagged
+  m_TagString: Turtle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,9 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb520e30595b9245a23680968b8fc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: -1, y: 0}
-  speed: 3
-  size: 0.8
 --- !u!114 &843566994729088496
 MonoBehaviour:
   m_ObjectHideFlags: 0

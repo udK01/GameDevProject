@@ -10,7 +10,7 @@ public class ProceduralGeneration : MonoBehaviour
     private const int LANE_WIDTH = 14;
     private const int OBSTACLE_SPAWN_DISTANCE = 10;
 
-    private int i;
+    public int i { get; private set; }
     private int ignoreWater = IGNORE;
     private int ignoreRoad = IGNORE;
     private int ignoreReverseRoad = IGNORE;
@@ -21,6 +21,7 @@ public class ProceduralGeneration : MonoBehaviour
     [SerializeField] private Sprite[] carSprites;
     [SerializeField] private Sprite[] tractorSprites;
     [Header("Game Objects")]
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject road;
     [SerializeField] private GameObject reverseRoad;
     [SerializeField] private GameObject lavaRoad;
@@ -401,4 +402,84 @@ public class ProceduralGeneration : MonoBehaviour
         }
         return spArray;
     }
+
+    private GameObject SpawnObj(GameObject obj, Vector3 position, Quaternion rotation)
+    {
+        obj = Instantiate(obj, position, rotation);
+        obj.transform.parent = this.transform;
+        return obj;
+    }
+
+    private GameObject SpawnObj(GameObject obj, Vector3 position, Quaternion rotation, GameObject parent)
+    {
+        obj = Instantiate(obj, position, rotation);
+        obj.transform.parent = parent.transform;
+        return obj;
+    }
+
+    public void LoadLevel(string filename)
+    {
+        LevelState levelState = LevelStateManager.Instance.LoadLevelState(filename);
+        if (levelState != null)
+        {
+            Player.Instance.blockDistance = levelState.playerInfo.blockDistance;
+            Player.Instance.obstacleImmunity = levelState.playerInfo.obstacleImmunity;
+            Player.Instance.transform.position = levelState.playerInfo.position;
+            Player.Instance.transform.rotation = levelState.playerInfo.rotation;
+
+            i = levelState.generationInfo.laneCount;
+
+            foreach (RoadPieceState roadPiece in levelState.roadPieces)
+            {
+                Debug.Log(roadPiece.type);
+            }
+            foreach (RoadPieceState roadPieceState in levelState.roadPieces)
+            {
+                GameObject roadPiece = SpawnObj(GetTypeByTag(roadPieceState.type), roadPieceState.position, roadPieceState.rotation);
+                //foreach (BarrierState barrierState in roadPieceState.barriers)
+                //{
+                //    SpawnObj(barrier, barrierState.position, barrierState.rotation, roadPiece);
+                //}
+                foreach (MovingChildState movingChildState in roadPieceState.movingChildren)
+                {
+                    GameObject movingChild = Instantiate(GetTypeByTag(movingChildState.type), movingChildState.position, movingChildState.rotation, roadPiece.transform);
+                    movingChild.GetComponent<Obstacle>().direction = movingChildState.direction;
+                    movingChild.GetComponent<Obstacle>().speed = movingChildState.speed;
+                    movingChild.GetComponent<Obstacle>().size = movingChildState.size;
+                }
+            }
+        }
+    }
+
+    private GameObject GetTypeByTag(string tag)
+    {
+        switch (tag)
+        {
+            case "Sidewalk":
+                return sidewalk;
+            case "Barrier":
+                return barrier;
+            case "LavaRoad":
+                return lavaRoad;
+            case "ReverseRoad":
+                return reverseRoad;
+            case "Road":
+                return road;
+            case "Water":
+                return water;
+            case "Car":
+                return car;
+            case "Turtle":
+                return turtle;
+            case "Log":
+                return log;
+            case "Powerup":
+                return powerUp;
+            case "Star":
+                return star;
+            default:
+                return null;
+        }
+    }
+
 }
