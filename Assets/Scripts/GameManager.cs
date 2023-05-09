@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public Text doubleJumpText { get; set; }
     public Text timeSlowText { get; set; }
 
+    [Header("Animator")]
+    [SerializeField] private Animator transition;
     [Header("Game Objects")]
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject menuBackground;
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Player.Instance.Respawn();
         Player.Instance.enabled = true;
-        StopAllCoroutines();
+        //StopAllCoroutines();
     }
 
     public void LoadGame()
@@ -115,7 +117,7 @@ public class GameManager : MonoBehaviour
         achievementUI.GetComponent<CanvasGroup>().alpha = 0;
         notificationText.gameObject.SetActive(true);
         gameOverUI.SetActive(false);
-        gamePlayUI.SetActive(true);
+        //gamePlayUI.SetActive(true);
     }
 
     /// <summary>
@@ -289,6 +291,18 @@ public class GameManager : MonoBehaviour
         {
             Player.Instance.enabled = true;
         }
+    }
+
+    public void MenuTransition()
+    {
+        StartCoroutine(nameof(Transition), 0f);
+    }
+
+    IEnumerator Transition()
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(0.35f);
+        gamePlayUI.SetActive(true);
     }
 
     /// <summary>
