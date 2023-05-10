@@ -21,10 +21,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        forward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("forward"));
-        backward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("backward"));
-        left = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("left"));
-        right = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("right"));
+        InitialiseKeys();
     }
 
     /// <summary>
@@ -41,6 +38,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.P))
         {
+            Debug.Log("Reset PlayerPrefs");
             PlayerPrefs.DeleteAll();
         }
     }
@@ -147,6 +145,26 @@ public class Player : MonoBehaviour
                 right = key;
                 PlayerPrefs.SetString("right", key.ToString());
                 break;
+        }
+    }
+
+    private void InitialiseKeys()
+    {
+        if (PlayerPrefs.HasKey("forward"))
+        {
+            forward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("forward"));
+        }
+        if (PlayerPrefs.HasKey("backward"))
+        {
+            backward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("backward"));
+        }
+        if (PlayerPrefs.HasKey("left"))
+        {
+            left = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("left"));
+        }
+        if (PlayerPrefs.HasKey("right"))
+        {
+            right = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("right"));
         }
     }
 }
