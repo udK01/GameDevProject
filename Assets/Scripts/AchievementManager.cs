@@ -17,12 +17,6 @@ public class AchievementManager : MonoBehaviour
 
     private Queue<AchievementType> notificationQueue = new Queue<AchievementType>();
 
-    // This is for testing purposes.
-    //private void Awake()
-    //{
-    //    PlayerPrefs.DeleteAll();
-    //}
-
     private void Start()
     {
         // Distance Achievements
@@ -50,11 +44,18 @@ public class AchievementManager : MonoBehaviour
         achievements.Add(new CollectionAchievements("Galatic Explorer!", "Collect 25 Stars", 25f, 2));
         achievements.Add(new CollectionAchievements("Starforger!", "Collect 50 Stars", 50f, 2));
 
+        // This is for testing purposes.
+        //foreach (AchievementType achievement in achievements)
+        //{
+        //    if (PlayerPrefs.HasKey(achievement.achievementName))
+        //    {
+        //        PlayerPrefs.DeleteKey(achievement.achievementName);
+        //    }
+        //}
 
         foreach (AchievementType achievement in achievements)
         {
             achievement.isCompleted = PlayerPrefs.GetInt(achievement.achievementName, 0) == 1;
-            //var newAchievementUI = Instantiate(achievementPanel, achievementListParent);
         }
     }
 

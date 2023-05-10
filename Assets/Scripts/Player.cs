@@ -36,11 +36,6 @@ public class Player : MonoBehaviour
         {
             MovePlayer(backward, right, forward, left);
         }
-        if (Input.GetKeyUp(KeyCode.P))
-        {
-            Debug.Log("Reset PlayerPrefs");
-            PlayerPrefs.DeleteAll();
-        }
     }
 
     /// <summary>
