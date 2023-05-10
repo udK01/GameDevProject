@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject menuBackground;
     [SerializeField] private GameObject menuUI;
     [SerializeField] private GameObject gamePlayUI;
+    [SerializeField] private GameObject saveManagerUI;
     [SerializeField] private GameObject achievementUI;
     [Header("Images")]
     [SerializeField] private Image _doubleJumpImage;
@@ -70,11 +71,19 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public void LoadGame()
+    public void LoadGame(int savedScore)
     {
+        gamePlayUI.SetActive(true);
+        menuBackground.SetActive(false);
+        saveManagerUI.SetActive(false);
+        ResetScore();
+        SetScore(savedScore);
+        currentHighestScore = savedScore;
+        bonusScore = 0;
         Time.timeScale = 1f;
         Player.Instance.gameObject.SetActive(true);
         Player.Instance.enabled = true;
+        DisableNotificationText();
         CleansePowerUps();
     }
 

@@ -422,13 +422,21 @@ public class ProceduralGeneration : MonoBehaviour
         LevelState levelState = LevelStateManager.Instance.LoadLevelState(filename);
         if (levelState != null)
         {
+            // Empty Existing Map.
+            int childCount = transform.childCount;
+            for (int i = childCount - 1; i >= 0; i--)
+            {
+                GameObject child = transform.GetChild(i).gameObject;
+                DestroyImmediate(child);
+            }
+            // Load Player Info.
             Player.Instance.blockDistance = levelState.playerInfo.blockDistance;
             Player.Instance.obstacleImmunity = levelState.playerInfo.obstacleImmunity;
             Player.Instance.transform.position = levelState.playerInfo.position;
             Player.Instance.transform.rotation = levelState.playerInfo.rotation;
-
+            // Generation Info.
             i = levelState.generationInfo.laneCount;
-
+            // Obstacle Info.
             foreach (RoadPieceState roadPieceState in levelState.roadPieces)
             {
                 GameObject roadPiece = SpawnObj(GetTypeByTag(roadPieceState.type), roadPieceState.position, roadPieceState.rotation);
