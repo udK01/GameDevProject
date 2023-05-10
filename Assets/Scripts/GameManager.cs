@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public Text doubleJumpText { get; set; }
     public Text timeSlowText { get; set; }
 
+    [Header("Animator")]
+    [SerializeField] private Animator anim;
     [Header("Game Objects")]
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject menuBackground;
@@ -71,18 +73,26 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void PlayTransition()
+    {
+        anim.ResetTrigger("Restart");
+        anim.ResetTrigger("Pause");
+        anim.SetTrigger("Start");
+        NewGame();
+    }
+
     public void LoadGame(int savedScore)
     {
-        gamePlayUI.SetActive(true);
-        menuBackground.SetActive(false);
         saveManagerUI.SetActive(false);
+        menuUI.SetActive(true);
+        anim.ResetTrigger("Pause");
+        anim.SetTrigger("Resume");
+        anim.SetTrigger("Start");
+        Player.Instance.gameObject.SetActive(true);
         ResetScore();
         SetScore(savedScore);
         currentHighestScore = savedScore;
         bonusScore = 0;
-        Time.timeScale = 1f;
-        Player.Instance.gameObject.SetActive(true);
-        Player.Instance.enabled = true;
         DisableNotificationText();
         CleansePowerUps();
     }
@@ -181,6 +191,7 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.Escape))
             {
+                anim.SetTrigger("Restart");
                 menuUI.SetActive(true);
                 menuBackground.SetActive(true);
                 menuUI.transform.GetChild(0).gameObject.SetActive(true);
@@ -200,8 +211,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape) && Player.Instance.enabled == true)
         {
-            menuUI.SetActive(true);
-            menuBackground.SetActive(true);
+            anim.SetTrigger("Pause");
             gamePlayUI.SetActive(false);
             menuUI.transform.GetChild(0).gameObject.SetActive(false);
             menuUI.transform.GetChild(1).gameObject.SetActive(true);
@@ -214,8 +224,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void UnPauseGame()
     {
+        anim.ResetTrigger("Pause");
+        anim.SetTrigger("Resume");
         Time.timeScale = 1f;
         Player.Instance.enabled = true;
+        gamePlayUI.SetActive(true);
     }
 
     /// <summary>
