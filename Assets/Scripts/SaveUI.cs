@@ -27,7 +27,7 @@ public class SaveUI : MonoBehaviour
 
     public void CreateSave()
     {
-        if (ProceduralGeneration.Instance.transform.childCount > 0)
+        if (ProceduralGeneration.Instance.transform.childCount > 0 && Player.Instance.gameObject.activeSelf)
         {
             scoreText.text = GameManager.Instance.score.ToString();
             PlayerPrefs.SetInt(savedScore, GameManager.Instance.score);
