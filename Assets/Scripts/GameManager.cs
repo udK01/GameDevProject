@@ -84,8 +84,10 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame(int savedScore)
     {
+        gamePlayUI.SetActive(true);
         menuUI.SetActive(true);
         playTransition.ResetTrigger("Pause");
+        playTransition.ResetTrigger("Restart");
         playTransition.SetTrigger("Resume");
         playTransition.SetTrigger("Start");
         menuTransition.SetTrigger("Load");

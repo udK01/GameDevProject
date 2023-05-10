@@ -230,10 +230,10 @@ public class ProceduralGeneration : MonoBehaviour
     /// <param name="sprites"> Tractor/Car Sprite Array </param>
     private void GenerateRoadObj(int y, int n, GameObject parentObj, Vector2 direction, int speed, Sprite[] sprites)
     {
-        Sprite sprite = sprites[Random.Range(0, sprites.Length)];
         int[] spArray = CalculateSpawnPoints(n);
         for (int j = 0; j < n; j++)
         {
+            Sprite sprite = sprites[Random.Range(0, sprites.Length)];
             SpawnObj(parentObj, car, Random.Range(spArray[j] + 1, spArray[j + 1] - 1), y, direction, speed, 1, sprite);
         }
     }
