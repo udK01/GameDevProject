@@ -9,18 +9,13 @@ public class TimeRewind : MonoBehaviour
 
     List<Vector3> positions = new List<Vector3>();
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && Player.Instance.gameObject.activeSelf)
+        if (Input.GetKeyDown(KeyCode.R) && Player.Instance.gameObject.activeSelf)
         {
             StartRewind();
         }
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.R))
         {
             StopRewind();
         }
