@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public int score { get; private set; }
     public float starCount { get; set; } = 0;
     public float powerUpCount { get; set; } = 0;
+    public float carDeathCount { get; set; } = 0;
+    public float waterDeathCount { get; set; } = 0;
+    public float nearDeathCount { get; set; } = 0;
     public Vector3 leftEdge { get; private set; }
     public Vector3 rightEdge { get; private set; }
 

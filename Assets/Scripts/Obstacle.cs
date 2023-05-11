@@ -49,6 +49,7 @@ public class Obstacle : MonoBehaviour
         if (this.gameObject.layer == LayerMask.NameToLayer("Water") && Player.Instance.transform.parent == null)
         {
             SoundManager.Instance.PlaySound("WaterDeath");
+            GameManager.Instance.waterDeathCount++;
             Player.Instance.Death();
         }
     }
@@ -65,6 +66,7 @@ public class Obstacle : MonoBehaviour
             if (Player.Instance.obstacleImmunity == false && Player.Instance.enabled == true)
             {
                 SoundManager.Instance.PlaySound("CarDeath");
+                GameManager.Instance.carDeathCount++;
                 Player.Instance.Death();
             }
             else

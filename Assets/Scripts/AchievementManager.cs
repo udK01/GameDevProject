@@ -7,11 +7,6 @@ public class AchievementManager : MonoBehaviour
     public List<AchievementType> achievements = new List<AchievementType>();
     [SerializeField] private Text achievementTitleText;
     [SerializeField] private Animator anim;
-
-    //[SerializeField] Image unlockedIcon;
-    //[SerializeField] Image lockedIcon;
-    //[SerializeField] Text title;
-    //[SerializeField] Text description;
     [SerializeField] GameObject achievementPrefab;
     [SerializeField] GameObject content;
 
@@ -43,15 +38,33 @@ public class AchievementManager : MonoBehaviour
         achievements.Add(new CollectionAchievements("Star Collector!", "Collect 12 Stars", 12f, 2));
         achievements.Add(new CollectionAchievements("Galatic Explorer!", "Collect 25 Stars", 25f, 2));
         achievements.Add(new CollectionAchievements("Starforger!", "Collect 50 Stars", 50f, 2));
+        // Car Death
+        achievements.Add(new DeathAchievements("Road-Kill!", "Get Hit By A Car", 1f, 1));
+        achievements.Add(new DeathAchievements("Leap of Miscalculations!", "Get Hit 5 Times", 5f, 1));
+        achievements.Add(new DeathAchievements("Froggy Crash Test!", "Get Hit 10 Times", 10f, 1));
+        achievements.Add(new DeathAchievements("Jumpy Accident Magnet", "Get Hit 25 Times", 25f, 1));
+        achievements.Add(new DeathAchievements("Master of Frogger Disasters!", "Get Hit 50 Times", 50f, 1));
+        //  Water Death
+        achievements.Add(new DeathAchievements("Splashdown!", " Drown Once", 1f, 2));
+        achievements.Add(new DeathAchievements("Aqua Fiasco!", "Drown 5 Times", 5f, 2));
+        achievements.Add(new DeathAchievements("Froggy Deep-Sea Explorer!", "Drown 10 Times", 10f, 2));
+        achievements.Add(new DeathAchievements("Submerged Hopper", "Drown 25 Times", 25f, 2));
+        achievements.Add(new DeathAchievements("Amphibious Sinking Expert!", "Drown 50 Times", 50f, 2));
+        // Close Calls
+        //achievements.Add(new DeathAchievements("Close Call!", "Narrowly Avoid a Car Once", 1f, 3));
+        //achievements.Add(new DeathAchievements("Froggy Reflexes!", "Narrowly Avoid a Car 5 Times", 5f, 3));
+        //achievements.Add(new DeathAchievements("Roadside Acrobat!", "Narrowly Avoid a Car 10 Times", 10f, 3));
+        //achievements.Add(new DeathAchievements("Master of Frogger Evasion!", "Narrowly Avoid a Car 25 Times", 25f, 3));
+        //achievements.Add(new DeathAchievements("Daredevil!", "Narrowly Avoid a Car 50 Times", 50f, 3));
 
         // This is for testing purposes.
-        //foreach (AchievementType achievement in achievements)
-        //{
-        //    if (PlayerPrefs.HasKey(achievement.achievementName))
-        //    {
-        //        PlayerPrefs.DeleteKey(achievement.achievementName);
-        //    }
-        //}
+        foreach (AchievementType achievement in achievements)
+        {
+            if (PlayerPrefs.HasKey(achievement.achievementName))
+            {
+                PlayerPrefs.DeleteKey(achievement.achievementName);
+            }
+        }
 
         foreach (AchievementType achievement in achievements)
         {
