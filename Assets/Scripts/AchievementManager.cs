@@ -51,11 +51,11 @@ public class AchievementManager : MonoBehaviour
         achievements.Add(new DeathAchievements("Submerged Hopper", "Drown 25 Times", 25f, 2));
         achievements.Add(new DeathAchievements("Amphibious Sinking Expert!", "Drown 50 Times", 50f, 2));
         // Close Calls
-        //achievements.Add(new DeathAchievements("Close Call!", "Narrowly Avoid a Car Once", 1f, 3));
-        //achievements.Add(new DeathAchievements("Froggy Reflexes!", "Narrowly Avoid a Car 5 Times", 5f, 3));
-        //achievements.Add(new DeathAchievements("Roadside Acrobat!", "Narrowly Avoid a Car 10 Times", 10f, 3));
-        //achievements.Add(new DeathAchievements("Master of Frogger Evasion!", "Narrowly Avoid a Car 25 Times", 25f, 3));
-        //achievements.Add(new DeathAchievements("Daredevil!", "Narrowly Avoid a Car 50 Times", 50f, 3));
+        achievements.Add(new DeathAchievements("Close Call!", "Narrowly Avoid a Car Once", 1f, 3));
+        achievements.Add(new DeathAchievements("Froggy Reflexes!", "Narrowly Avoid a Car 3 Times", 3f, 3));
+        achievements.Add(new DeathAchievements("Roadside Acrobat!", "Narrowly Avoid a Car 6 Times", 6f, 3));
+        achievements.Add(new DeathAchievements("Master of Frogger Evasion!", "Narrowly Avoid a Car 12 Times", 12f, 3));
+        achievements.Add(new DeathAchievements("Daredevil!", "Narrowly Avoid a Car 25 Times", 25f, 3));
 
         // This is for testing purposes.
         foreach (AchievementType achievement in achievements)

@@ -3,7 +3,7 @@ using UnityEngine;
 public class DeathAchievements : AchievementType
 {
     private float deathThreshold;
-    private int deathType; // Type 1 = Car, Type 2 = Water
+    private int deathType; // Type 1 = Car, Type 2 = Water, Type 3 = Near Death
 
     public DeathAchievements(string name, string description, float threshold, int type) : base(name, description)
     {
@@ -33,8 +33,8 @@ public class DeathAchievements : AchievementType
                 return CheckDeathThreshold(GameManager.Instance.carDeathCount);
             case 2:
                 return CheckDeathThreshold(GameManager.Instance.waterDeathCount);
-            //case 3:
-            //    return CheckDeathThreshold(GameManager.Instance.nearDeathCount);
+            case 3:
+                return CheckDeathThreshold(GameManager.Instance.nearDeathCount);
             default:
                 return false;
         }
