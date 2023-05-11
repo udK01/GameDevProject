@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class DeathAchievements : AchievementType
 {
     private float deathThreshold;
@@ -11,30 +9,16 @@ public class DeathAchievements : AchievementType
         deathType = type;
     }
 
-    public bool CheckDeathThreshold(float count)
-    {
-        if (count >= deathThreshold && !isCompleted)
-        {
-            isCompleted = true;
-            PlayerPrefs.SetInt(achievementName, 1);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public override bool CheckIfAchievementEarned()
+    protected override bool CheckCompletionCondition()
     {
         switch (deathType)
         {
             case 1:
-                return CheckDeathThreshold(GameManager.Instance.carDeathCount);
+                return GameManager.Instance.carDeathCount >= deathThreshold;
             case 2:
-                return CheckDeathThreshold(GameManager.Instance.waterDeathCount);
+                return GameManager.Instance.waterDeathCount >= deathThreshold;
             case 3:
-                return CheckDeathThreshold(GameManager.Instance.nearDeathCount);
+                return GameManager.Instance.nearDeathCount >= deathThreshold;
             default:
                 return false;
         }

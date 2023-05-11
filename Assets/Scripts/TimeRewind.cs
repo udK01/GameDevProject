@@ -11,7 +11,11 @@ public class TimeRewind : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && Player.Instance.gameObject.activeSelf)
+        if (!Player.Instance.gameObject.activeSelf)
+        {
+            positions.Clear();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
         {
             StartRewind();
         }
@@ -30,6 +34,11 @@ public class TimeRewind : MonoBehaviour
         {
             Record();
         }
+    }
+
+    public void ClearRewindList()
+    {
+        positions.Clear();
     }
 
     private void Rewind()

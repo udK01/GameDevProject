@@ -6009,7 +6009,7 @@ MonoBehaviour:
   - name: Theme
     clip: {fileID: 8300000, guid: f547192c07b915c45b2e45ecbc555704, type: 3}
     loop: 1
-    volume: 0.7
+    volume: 0.9
     pitch: 1
   - name: CarDeath
     clip: {fileID: 8300000, guid: 7955e95d2e694c747bbe1705838c55d6, type: 3}

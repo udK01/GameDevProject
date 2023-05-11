@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class DistanceAchievement : AchievementType
 {
     public float distanceThreshold;
@@ -9,17 +7,8 @@ public class DistanceAchievement : AchievementType
         distanceThreshold = threshold;
     }
 
-    public override bool CheckIfAchievementEarned()
+    protected override bool CheckCompletionCondition()
     {
-        if (GameManager.Instance.score >= distanceThreshold && !isCompleted)
-        {
-            isCompleted = true;
-            PlayerPrefs.SetInt(achievementName, 1);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return GameManager.Instance.score >= distanceThreshold;
     }
 }

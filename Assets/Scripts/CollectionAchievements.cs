@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class CollectionAchievements : AchievementType
 {
     private float collectionThreshold;
@@ -11,28 +9,14 @@ public class CollectionAchievements : AchievementType
         collectionType = type;
     }
 
-    public bool CheckCollectionThreshold(float count)
-    {
-        if (count >= collectionThreshold && !isCompleted)
-        {
-            isCompleted = true;
-            PlayerPrefs.SetInt(achievementName, 1);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public override bool CheckIfAchievementEarned()
+    protected override bool CheckCompletionCondition()
     {
         switch (collectionType)
         {
             case 1:
-                return CheckCollectionThreshold(GameManager.Instance.powerUpCount);
+                return GameManager.Instance.powerUpCount >= collectionThreshold;
             case 2:
-                return CheckCollectionThreshold(GameManager.Instance.starCount);
+                return GameManager.Instance.starCount >= collectionThreshold;
             default:
                 return false;
         }

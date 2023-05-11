@@ -1,4 +1,6 @@
-public class AchievementType
+using UnityEngine;
+
+public abstract class AchievementType
 {
     public string achievementName;
     public string achievementDescription;
@@ -11,10 +13,20 @@ public class AchievementType
         isCompleted = false;
     }
 
-    public virtual bool CheckIfAchievementEarned()
+    public bool CheckIfAchievementEarned()
     {
-        return isCompleted;
+        if (CheckCompletionCondition() && !isCompleted)
+        {
+            isCompleted = true;
+            PlayerPrefs.SetInt(achievementName, 1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-}
+    protected abstract bool CheckCompletionCondition();
 
+}

@@ -7,8 +7,8 @@ public class AchievementManager : MonoBehaviour
     public List<AchievementType> achievements = new List<AchievementType>();
     [SerializeField] private Text achievementTitleText;
     [SerializeField] private Animator anim;
-    [SerializeField] GameObject achievementPrefab;
-    [SerializeField] GameObject content;
+    [SerializeField] private GameObject achievementPrefab;
+    [SerializeField] private GameObject content;
 
     private Queue<AchievementType> notificationQueue = new Queue<AchievementType>();
 
@@ -58,13 +58,13 @@ public class AchievementManager : MonoBehaviour
         achievements.Add(new DeathAchievements("Daredevil!", "Narrowly Avoid a Car 25 Times", 25f, 3));
 
         // This is for testing purposes.
-        foreach (AchievementType achievement in achievements)
-        {
-            if (PlayerPrefs.HasKey(achievement.achievementName))
-            {
-                PlayerPrefs.DeleteKey(achievement.achievementName);
-            }
-        }
+        //foreach (AchievementType achievement in achievements)
+        //{
+        //    if (PlayerPrefs.HasKey(achievement.achievementName))
+        //    {
+        //        PlayerPrefs.DeleteKey(achievement.achievementName);
+        //    }
+        //}
 
         foreach (AchievementType achievement in achievements)
         {
@@ -97,6 +97,7 @@ public class AchievementManager : MonoBehaviour
 
     public void DisplayAchievements()
     {
+        ClearScrollViewContent();
         foreach (AchievementType achievement in achievements)
         {
             GameObject achievementDisplay = Instantiate(achievementPrefab, Vector3.zero, Quaternion.identity);
@@ -113,6 +114,14 @@ public class AchievementManager : MonoBehaviour
             achievementName.GetComponent<Text>().text = achievement.achievementName;
             achievementDescription.GetComponent<Text>().text = achievement.achievementDescription;
             achievementDisplay.transform.SetParent(content.transform, false);
+        }
+    }
+
+    private void ClearScrollViewContent()
+    {
+        for (int i = content.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(content.transform.GetChild(i).gameObject);
         }
     }
 

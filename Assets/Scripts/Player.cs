@@ -103,6 +103,7 @@ public class Player : MonoBehaviour
     public void Death()
     {
         enabled = false;
+        this.GetComponent<TimeRewind>().ClearRewindList();
         GameManager.Instance.DisableNotificationText();
         GameManager.Instance.GameOver();
     }
